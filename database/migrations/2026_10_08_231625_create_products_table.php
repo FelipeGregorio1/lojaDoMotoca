@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->decimal('price', 10, 2);
-            $table->integer('category-id');
+            $table->integer('category_id');
             $table->timestamps();
         });
     }
