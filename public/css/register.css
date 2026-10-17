@@ -1,0 +1,312 @@
+/* ================= RESET & VARIÁVEIS ================= */
+    :root {
+      --primary-red: #e50914;
+      --primary-red-hover: #c80812;
+      --text-dark: #0f172a;
+      --text-label: #334155;
+      --text-muted: #94a3b8;
+      --input-bg: #f4f5f7;
+      --input-border: #e5e7eb;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background-color: #ffffff;
+      color: var(--text-dark);
+      min-height: 100vh;
+    }
+
+    /* ================= LAYOUT DIVIDIDO (SPLIT SCREEN) ================= */
+    .register-layout {
+      display: grid;
+      grid-template-columns: 1.75fr 1fr;
+      min-height: 100vh;
+      width: 100%;
+    }
+
+    /* ================= LADO ESQUERDO (BANNER) ================= */
+    .register-banner {
+      position: relative;
+      background-color: #2a1215;
+      background-image: 
+        linear-gradient(180deg, rgba(30, 10, 14, 0.55) 0%, rgba(120, 28, 32, 0.45) 55%, rgba(25, 8, 10, 0.78) 100%),
+        url('https://images.unsplash.com/photo-1558981403-c5f9899a28bc?auto=format&fit=crop&w=1600&q=85');
+      background-size: cover;
+      background-position: center;
+      padding: 48px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+    }
+
+    .banner-logo-link {
+      display: inline-block;
+      width: 190px;
+      height: 190px;
+      border-radius: 50%;
+      padding: 4px;
+      background: linear-gradient(145deg, #e2e8f0, #94a3b8);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
+      transition: transform 0.2s ease;
+    }
+
+    .banner-logo-link:hover {
+      transform: scale(1.02);
+    }
+
+    .banner-logo-img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      border: 3px solid var(--primary-red);
+      background-color: #09090b;
+      object-fit: cover;
+    }
+
+    .banner-headline {
+      font-size: clamp(36px, 4.2vw, 54px);
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: -0.5px;
+      text-transform: uppercase;
+      color: #ffffff;
+      max-width: 540px;
+      margin-bottom: 8px;
+    }
+
+    .banner-headline .text-red {
+      color: var(--primary-red);
+      display: block;
+    }
+
+    /* ================= LADO DIREITO (FORMULÁRIO) ================= */
+    .register-panel {
+      background-color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 40px 36px;
+    }
+
+    .register-container {
+      width: 100%;
+      max-width: 380px;
+    }
+
+    .register-header {
+      margin-bottom: 24px;
+    }
+
+    .register-title {
+      font-size: 22px;
+      font-weight: 900;
+      color: var(--text-dark);
+      text-transform: uppercase;
+      letter-spacing: -0.3px;
+      margin-bottom: 5px;
+    }
+
+    .register-subtitle {
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--text-muted);
+    }
+
+    .login-redirect-link {
+      color: var(--primary-red);
+      font-weight: 800;
+      text-decoration: none;
+      margin-left: 2px;
+    }
+
+    .login-redirect-link:hover {
+      text-decoration: underline;
+    }
+
+    /* ================= FORMULÁRIO & CAMPOS ================= */
+    .register-form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-row-2col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-label);
+      margin-bottom: 6px;
+    }
+
+    .required-star {
+      color: var(--primary-red);
+      margin-left: 1px;
+    }
+
+    .input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .form-control {
+      width: 100%;
+      background-color: var(--input-bg);
+      border: 1px solid var(--input-border);
+      border-radius: 8px;
+      padding: 12px 14px;
+      font-size: 12.5px;
+      color: var(--text-dark);
+      outline: none;
+      transition: border-color 0.2s, background-color 0.2s;
+    }
+
+    .form-control.has-toggle {
+      padding-right: 52px;
+    }
+
+    .form-control::placeholder {
+      color: #a1a1aa;
+    }
+
+    .form-control:focus {
+      background-color: #ffffff;
+      border-color: #cbd5e1;
+    }
+
+    /* Botão "VER" dentro do input de senha */
+    .btn-toggle-password {
+      position: absolute;
+      right: 12px;
+      background: transparent;
+      border: none;
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      cursor: pointer;
+      padding: 4px;
+      transition: color 0.2s;
+    }
+
+    .btn-toggle-password:hover {
+      color: var(--text-dark);
+    }
+
+    /* Mensagens de erro do Laravel Breeze */
+    .error-message {
+      display: block;
+      font-size: 11px;
+      color: var(--primary-red);
+      margin-top: 4px;
+      font-weight: 500;
+    }
+
+    /* ================= TERMOS E CONDIÇÕES (CHECKBOX) ================= */
+    .terms-agreement {
+      display: flex;
+      align-items: flex-start;
+      gap: 9px;
+      margin-top: 2px;
+      margin-bottom: 20px;
+      cursor: pointer;
+    }
+
+    .terms-checkbox {
+      width: 14px;
+      height: 14px;
+      margin-top: 2px;
+      accent-color: var(--primary-red);
+      border: 1px solid #cbd5e1;
+      border-radius: 3px;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .terms-label-text {
+      font-size: 10.5px;
+      color: #64748b;
+      line-height: 1.45;
+    }
+
+    .terms-label-text a {
+      color: var(--primary-red);
+      font-weight: 700;
+      text-decoration: underline;
+    }
+
+    .terms-label-text a:hover {
+      opacity: 0.85;
+    }
+
+    /* ================= BOTÃO CRIAR CONTA GRÁTIS ================= */
+    .btn-submit {
+      width: 100%;
+      background-color: var(--primary-red);
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      padding: 13.5px 20px;
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      transition: background-color 0.2s, transform 0.1s;
+    }
+
+    .btn-submit:hover {
+      background-color: var(--primary-red-hover);
+    }
+
+    .btn-submit:active {
+      transform: scale(0.99);
+    }
+
+    /* ================= RESPONSIVIDADE ================= */
+    @media (max-width: 960px) {
+      .register-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .register-banner {
+        padding: 36px 24px;
+        align-items: center;
+        text-align: center;
+        gap: 32px;
+      }
+
+      .banner-logo-link {
+        width: 130px;
+        height: 130px;
+      }
+
+      .register-panel {
+        padding: 40px 24px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .form-row-2col {
+        grid-template-columns: 1fr;
+        gap: 0;
+      }
+    }

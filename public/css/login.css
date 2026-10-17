@@ -1,0 +1,318 @@
+/* ================= RESET & VARIÁVEIS ================= */
+    :root {
+      --primary-red: #e50914;
+      --primary-red-hover: #c80812;
+      --text-dark: #0f172a;
+      --text-label: #334155;
+      --text-muted: #94a3b8;
+      --input-bg: #f4f5f7;
+      --input-border: #e5e7eb;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background-color: #ffffff;
+      color: var(--text-dark);
+      min-height: 100vh;
+    }
+
+    /* ================= LAYOUT DIVIDIDO (SPLIT SCREEN) ================= */
+    .login-layout {
+      display: grid;
+      grid-template-columns: 1.9fr 1fr;
+      min-height: 100vh;
+      width: 100%;
+    }
+
+    /* ================= LADO ESQUERDO (BANNER) ================= */
+    .login-banner {
+      position: relative;
+      background-color: #1a0507;
+      background-image: 
+        linear-gradient(135deg, rgba(35, 6, 9, 0.82) 0%, rgba(75, 10, 16, 0.72) 50%, rgba(25, 4, 7, 0.88) 100%),
+        url('https://images.unsplash.com/photo-1558981285-6f0c94958bb6?auto=format&fit=crop&w=1600&q=85');
+      background-size: cover;
+      background-position: center;
+      padding: 52px 48px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      overflow: hidden;
+    }
+
+    .banner-logo-link {
+      display: inline-block;
+      width: 190px;
+      height: 190px;
+      border-radius: 50%;
+      padding: 4px;
+      background: linear-gradient(145deg, #e2e8f0, #94a3b8);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+      margin-bottom: 72px;
+      transition: transform 0.2s ease;
+    }
+
+    .banner-logo-link:hover {
+      transform: scale(1.02);
+    }
+
+    .banner-logo-img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      border: 3px solid var(--primary-red);
+      background-color: #09090b;
+      object-fit: cover;
+    }
+
+    .banner-headline {
+      font-size: clamp(38px, 4.5vw, 58px);
+      font-weight: 900;
+      line-height: 1.04;
+      letter-spacing: -0.5px;
+      text-transform: uppercase;
+      color: #ffffff;
+      max-width: 520px;
+    }
+
+    .banner-headline .text-red {
+      color: var(--primary-red);
+      display: block;
+    }
+
+    /* ================= LADO DIREITO (FORMULÁRIO) ================= */
+    .login-panel {
+      background-color: #ffffff;
+      display: flex;
+       flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 48px 40px;
+    }
+
+    .login-container {
+      width: 100%;
+      max-width: 340px;
+    }
+
+    .login-header {
+      margin-bottom: 28px;
+    }
+
+    .login-title {
+      font-size: 21px;
+      font-weight: 900;
+      color: var(--text-dark);
+      text-transform: uppercase;
+      letter-spacing: -0.3px;
+      margin-bottom: 6px;
+    }
+
+    .login-subtitle {
+      font-size: 12.5px;
+      font-weight: 400;
+      color: var(--text-muted);
+    }
+
+    /* ================= FORMULÁRIO & CAMPOS ================= */
+    .login-form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-label);
+      margin-bottom: 7px;
+    }
+
+    .input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .form-control {
+      width: 100%;
+      background-color: var(--input-bg);
+      border: 1px solid var(--input-border);
+      border-radius: 8px;
+      padding: 13px 16px;
+      font-size: 12.5px;
+      color: var(--text-dark);
+      outline: none;
+      transition: border-color 0.2s, background-color 0.2s;
+    }
+
+    .form-control.has-toggle {
+      padding-right: 54px;
+    }
+
+    .form-control::placeholder {
+      color: #a1a1aa;
+    }
+
+    .form-control:focus {
+      background-color: #ffffff;
+      border-color: #cbd5e1;
+    }
+
+    /* Botão "VER" dentro do input de senha */
+    .btn-toggle-password {
+      position: absolute;
+      right: 14px;
+      background: transparent;
+      border: none;
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      cursor: pointer;
+      padding: 4px;
+      transition: color 0.2s;
+    }
+
+    .btn-toggle-password:hover {
+      color: var(--text-dark);
+    }
+
+    /* Mensagens de erro do Laravel Breeze */
+    .error-message {
+      display: block;
+      font-size: 11px;
+      color: var(--primary-red);
+      margin-top: 5px;
+      font-weight: 500;
+    }
+
+    .status-alert {
+      background-color: #ecfdf5;
+      color: #059669;
+      font-size: 12px;
+      padding: 10px 12px;
+      border-radius: 8px;
+      margin-bottom: 16px;
+      font-weight: 500;
+    }
+
+    /* Link Esqueci minha senha */
+    .forgot-password-row {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: -6px;
+      margin-bottom: 20px;
+    }
+
+    .forgot-password-link {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--primary-red);
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+
+    .forgot-password-link:hover {
+      opacity: 0.85;
+      text-decoration: underline;
+    }
+
+    /* Botão ENTRAR */
+    .btn-submit {
+      width: 100%;
+      background-color: var(--primary-red);
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      padding: 13.5px 20px;
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      transition: background-color 0.2s, transform 0.1s;
+    }
+
+    .btn-submit:hover {
+      background-color: var(--primary-red-hover);
+    }
+
+    .btn-submit:active {
+      transform: scale(0.99);
+    }
+
+    /* Link Criar conta grátis */
+    .register-prompt {
+      text-align: center;
+      margin-top: 22px;
+      font-size: 11.5px;
+      color: var(--text-muted);
+    }
+
+    .register-link {
+      color: var(--primary-red);
+      font-weight: 800;
+      text-decoration: none;
+      margin-left: 3px;
+    }
+
+    .register-link:hover {
+      text-decoration: underline;
+    }
+
+    /* Rodapé de Termos */
+    .login-footer {
+      margin-top: 52px;
+      text-align: center;
+    }
+
+    .terms-text {
+      font-size: 10.5px;
+      color: #cbd5e1;
+      line-height: 1.5;
+    }
+
+    .terms-text a {
+      color: #94a3b8;
+      text-decoration: underline;
+      transition: color 0.2s;
+    }
+
+    .terms-text a:hover {
+      color: var(--text-label);
+    }
+
+    /* ================= RESPONSIVIDADE ================= */
+    @media (max-width: 960px) {
+      .login-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .login-banner {
+        padding: 36px 24px;
+        align-items: center;
+        text-align: center;
+      }
+
+      .banner-logo-link {
+        width: 130px;
+        height: 130px;
+        margin-bottom: 28px;
+      }
+
+      .login-panel {
+        padding: 40px 24px;
+      }
+    }
