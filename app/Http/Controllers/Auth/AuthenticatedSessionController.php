@@ -28,7 +28,11 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route('welcome', absolute: false));
+        if ($request->user()->is_admin) {
+            return redirect()->intended('/category');
+        }
+
+        return redirect()->intended(route('client.home', absolute: false));
     }
 
     /**

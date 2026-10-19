@@ -2,6 +2,7 @@
     @csrf
     <div>Nome: <input type="text" name="name"></div>
     <div>Preço: <input type="text" name="price"></div>
+    <div>Estoque: <input type="number" name="stock"></div>
     <div>Categoria: 
         <select name="category_id">
             <option values="">Selecione uma Categoria</option>

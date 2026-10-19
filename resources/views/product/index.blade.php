@@ -96,7 +96,7 @@
                 <!-- Coluna 4: Estoque (Fica vermelho se for <= 5 unidades, igual à imagem) -->
                 <td>
                   <span class="product-stock {{ $stock <= 5 ? 'low-stock' : '' }}">
-                    {{ $stock }} un.
+                      {{ $stock }} un.
                   </span>
                 </td>
 
