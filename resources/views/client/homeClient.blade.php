@@ -20,7 +20,7 @@
     <div class="container navbar-content">
       
       <a href="{{ route('client.home') }}" class="navbar-logo" aria-label="Página Inicial Loja do Motoca">
-        <img class="logo-img" src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?w=120" alt="Loja do Motoca">
+        <img class="logo-img" src="img/logoLDM.png" alt="Loja do Motoca">
       </a>
 
       <form class="search-form" action="{{ route('client.home') }}" method="GET">

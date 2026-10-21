@@ -19,7 +19,7 @@
       <a href="{{ url('/') }}" class="banner-logo-link" aria-label="Voltar para a página inicial">
         <!-- Substitua pelo caminho da sua logo oficial (ex: asset('images/logo.png')) -->
         <img 
-          src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?w=300" 
+          src="img/logoLDM.png" 
           alt="Loja do Motoca - Acessórios para quem vive duas rodas" 
           class="banner-logo-img"
         >
