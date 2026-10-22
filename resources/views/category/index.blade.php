@@ -33,7 +33,6 @@
   </svg>
 
   <main class="categories-panel">
-    <!-- Cabeçalho com contagem dinâmica do Laravel -->
     <header class="panel-header">
       <div class="panel-title-group">
         <h1>Gerenciar categorias</h1>
