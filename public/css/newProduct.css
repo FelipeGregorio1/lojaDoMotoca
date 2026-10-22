@@ -1,0 +1,204 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+    background-color: #f4f5f7;
+    color: #333;
+}
+
+.admin-container {
+    max-width: 1050px;
+    margin: 0 auto;
+    padding: 40px 20px 120px;
+}
+
+/* Cabeçalho da Página */
+.page-header {
+    margin-bottom: 30px;
+}
+
+.page-header .badge {
+    color: #e3000f;
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.page-header h1 {
+    font-size: 2rem;
+    font-weight: 900;
+    color: #111;
+    margin-bottom: 6px;
+}
+
+.page-header p {
+    color: #6b7280;
+    font-size: 0.95rem;
+}
+
+/* Layout em Grid para Produtos (2 Colunas) */
+.product-form {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 24px;
+    align-items: start;
+}
+
+/* Layout para Categorias (1 Coluna) */
+.category-form {
+    display: block;
+    max-width: 600px;
+}
+
+/* Estilo do Cartão (Section) */
+.card {
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02), 0 4px 12px rgba(0, 0, 0, 0.04);
+    border: 1px solid #e5e7eb;
+    padding: 24px;
+}
+
+.card-title {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: #111;
+    margin-bottom: 4px;
+}
+
+.card-subtitle {
+    font-size: 0.85rem;
+    color: #9ca3af;
+    margin-bottom: 20px;
+}
+
+.divider {
+    border: 0;
+    border-top: 1px solid #f3f4f6;
+    margin: 0 -24px 24px -24px;
+}
+
+/* Campos do Formulário */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+
+.form-group:last-of-type {
+    margin-bottom: 0;
+}
+
+.form-group span,
+.form-group label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 8px;
+}
+
+.form-group input,
+.form-group select {
+    padding: 12px 16px;
+    font-size: 0.95rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    background-color: #f9fafb;
+    color: #111;
+    outline: none;
+    width: 100%;
+    transition: border-color 0.2s, background-color 0.2s, box-shadow 0.2s;
+}
+
+/* Deixa o select mais curto nas informações do produto, igual à referência */
+.product-form .card:first-of-type select {
+    max-width: 280px;
+}
+
+.form-group select {
+    cursor: pointer;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: #d1d5db;
+    background-color: #ffffff;
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
+}
+
+/* Barra Fixa Inferior */
+.form-actions {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #ffffff;
+    border-top: 1px solid #e5e7eb;
+    padding: 16px 0;
+    z-index: 10;
+}
+
+.actions-container {
+    max-width: 1050px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+}
+
+/* Botões */
+.btn,
+a.btn {
+    padding: 12px 24px;
+    font-size: 0.85rem;
+    font-weight: 800;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none !important; /* Remove o sublinhado do link CANCELAR */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+.btn:active {
+    transform: scale(0.98);
+}
+
+.btn-cancel {
+    background-color: #f3f4f6;
+    color: #1f2937;
+}
+
+.btn-cancel:hover {
+    background-color: #e5e7eb;
+}
+
+.btn-submit {
+    background-color: #e3000f;
+    color: #ffffff;
+}
+
+.btn-submit:hover {
+    background-color: #cc000d;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .product-form {
+        grid-template-columns: 1fr;
+    }
+    .product-form .card:first-of-type select {
+        max-width: 100%;
+    }
+}
