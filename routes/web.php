@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [StoreController::class, 'index'])->name('client.home');
 Route::get('/loja/categoria/{id}', [StoreController::class, 'showCategory'])->name('client.category');
 Route::view('/sobre-nos', 'client.about')->name('client.about');
+Route::view('/politica-de-privacidade', 'client.privacy')->name('client.privacy');
 
 // ================= ROTAS DE QUALQUER USUÁRIO LOGADO (CLIENTE OU ADMIN) =================
 Route::middleware('auth')->group(function () {
