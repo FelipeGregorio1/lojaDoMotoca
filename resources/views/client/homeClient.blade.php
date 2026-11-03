@@ -218,7 +218,7 @@
 
       <nav aria-label="Links institucionais">
         <ul class="footer-links">
-          <li><a href="#">Sobre nós</a></li>
+          <li><a href="{{ route('client.about') }}">Sobre nós</a></li>
           <li><a href="#">Política de privacidade</a></li>
           <li><a href="#">Termos de uso</a></li>
           <li><a href="#">Contato</a></li>

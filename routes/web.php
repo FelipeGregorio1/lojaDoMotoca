@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Route;
 // ================= ROTAS DO CLIENTE (VITRINE PÚBLICA) =================
 Route::get('/', [StoreController::class, 'index'])->name('client.home');
 Route::get('/loja/categoria/{id}', [StoreController::class, 'showCategory'])->name('client.category');
+Route::view('/sobre-nos', 'client.about')->name('client.about');
 
 // ================= ROTAS DE QUALQUER USUÁRIO LOGADO (CLIENTE OU ADMIN) =================
 Route::middleware('auth')->group(function () {
