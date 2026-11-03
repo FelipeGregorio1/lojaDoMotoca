@@ -13,6 +13,7 @@ Route::get('/loja/categoria/{id}', [StoreController::class, 'showCategory'])->na
 Route::view('/sobre-nos', 'client.about')->name('client.about');
 Route::view('/politica-de-privacidade', 'client.privacy')->name('client.privacy');
 Route::view('/termos-de-uso', 'client.terms')->name('client.terms');
+Route::view('/contato', 'client.contact')->name('client.contact');
 
 // ================= ROTAS DE QUALQUER USUÁRIO LOGADO (CLIENTE OU ADMIN) =================
 Route::middleware('auth')->group(function () {
