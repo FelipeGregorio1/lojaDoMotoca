@@ -225,7 +225,7 @@
         <ul class="footer-links">
           <li><a href="{{ route('client.about') }}">Sobre nós</a></li>
           <li><a href="{{ route('client.privacy') }}">Política de privacidade</a></li>
-          <li><a href="#">Termos de uso</a></li>
+          <li><a href="{{ route('client.terms') }}">Termos de uso</a></li>
           <li><a href="#">Contato</a></li>
         </ul>
       </nav>

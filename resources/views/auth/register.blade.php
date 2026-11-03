@@ -183,7 +183,7 @@
               required
             >
             <span class="terms-label-text">
-              Li e aceito os <a href="#">Termos de Uso</a> e a <a href="#">Política de Privacidade</a>. Estou ciente sobre o tratamento dos meus dados pessoais.
+              Li e aceito os <a href="{{ route('client.terms') }}">Termos de Uso</a> e a <a href="{{ route('client.privacy') }}">Política de Privacidade</a>. Estou ciente sobre o tratamento dos meus dados pessoais.
             </span>
           </label>
 
