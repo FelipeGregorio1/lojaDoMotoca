@@ -126,20 +126,10 @@
           <h2 class="section-title">CATEGORIAS <span>PRINCIPAIS</span></h2>
         </header>
 
-        @php
-          $defaultImages = [
-            'https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=600&q=80',
-            'https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?auto=format&fit=crop&w=600&q=80',
-            'https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&w=600&q=80',
-            'https://images.unsplash.com/photo-1578844251758-2f71da64c96f?auto=format&fit=crop&w=600&q=80',
-            'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=600&q=80',
-          ];
-        @endphp
-
         <div class="categories-showcase-grid">
           @forelse($categories as $index => $c)
             <a href="{{ route('client.category', $c->id) }}" class="category-showcase-card">
-              <img src="{{ $c->image ?? $defaultImages[$index % count($defaultImages)] }}" alt="{{ $c->name }}">
+              <img src="{{ $c->image ? asset('storage/' . $c->image) : '' }}" alt="{{ $c->name }}">
               <div class="category-showcase-overlay"></div>
               <h3 class="category-showcase-title">{{ $c->name }}</h3>
             </a>
@@ -162,7 +152,7 @@
           @forelse($products as $p)
             <article class="product-card">
               <div class="product-thumb">
-                <img src="{{ $p->image ?? 'https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=600&q=80' }}" alt="{{ $p->name }}">
+                <img src="{{ $p->image ? asset('storage/' . $p->image) : '' }}" alt="{{ $p->name }}">
                 <span class="badge-tag">OFERTA</span>
                 <span class="badge-discount">-15%</span>
               </div>

@@ -346,7 +346,7 @@
       position: absolute;
       inset: 0;
       width: 100%;
-      height: 100%;
+      height: 220px;
       object-fit: cover;
       transition: transform 0.35s ease;
     }
@@ -423,7 +423,7 @@
 
     .product-thumb img {
       width: 100%;
-      height: 100%;
+      height: 220px;
       object-fit: cover;
     }
 

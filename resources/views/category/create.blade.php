@@ -114,7 +114,7 @@
         <p>Organize o catálogo e defina como esta categoria será apresentada na loja.</p>
     </header>
 
-    <form action="/category" method="POST" class="category-form">
+    <form action="/category" method="POST" enctype="multipart/form-data" class="category-form">
         @csrf
         
         <div class="card">
@@ -127,8 +127,15 @@
             
             <div class="card-body">
                 <div class="form-group">
-                    <label for="name">Nome da categoria *</label>
-                    <input type="text" id="name" name="name" required>
+                    <label for="name">
+                        <span>Nome da categoria *</span>
+                        <input type="text" id="name" name="name" required>
+                    </label>
+
+                    <label for="image">
+                        <span>Imagem da categoria *</span>
+                    <input type="file" name="image" id="image" accept="image/*" required>
+                </label>
                 </div>
             </div>
         </div>

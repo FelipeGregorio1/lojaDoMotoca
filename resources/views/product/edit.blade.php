@@ -115,7 +115,7 @@
     </header>
 
     <main>
-        <form action="/product/update/{{ $product->id }}" method="POST" class="product-form">
+        <form action="/product/update/{{ $product->id }}" method="POST" enctype="multipart/form-data" class="product-form">
             @csrf
             
             <section class="card">
@@ -156,6 +156,11 @@
                 <label class="form-group">
                     <span>Estoque *</span>
                     <input type="number" name="stock" value="{{ $product->stock }}" placeholder="0" required>
+                </label>
+
+                <label for="image">
+                    <span>Imagem do produto *</span>
+                    <input type="file" name="image" id="image" accept="image/*" required>
                 </label>
             </section>
 

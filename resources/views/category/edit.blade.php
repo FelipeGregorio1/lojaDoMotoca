@@ -114,7 +114,7 @@
         <p>Atualize a organização do catálogo de peças e acessórios.</p>
     </header>
 
-    <form action="/category/update/{{ $category->id }}" method="POST" class="category-form">
+    <form action="/category/update/{{ $category->id }}" method="POST" enctype="multipart/form-data" class="category-form">
         @csrf
         
         <div class="card">
@@ -127,9 +127,15 @@
             
             <div class="card-body">
                 <div class="form-group">
-                    <label for="name">Nome da categoria *</label>
-                    <!-- O atributo value preenche o input com o dado atual vindo do banco -->
-                    <input type="text" id="name" name="name" value="{{ $category->name }}" required>
+                    <label for="name">
+                        <span>Nome da categoria *</span>
+                        <input type="text" id="name" name="name" required>
+                    </label>
+
+                    <label for="image">
+                        <span>Imagem da categoria *</span>
+                    <input type="file" name="image" id="image" accept="image/*" required>
+                </label>
                 </div>
             </div>
         </div>
