@@ -25,20 +25,20 @@ Route::middleware('auth')->group(function () {
 // ================= ROTAS EXCLUSIVAS DO ADMIN (GERENCIAMENTO) =================
 Route::middleware(['auth', AdminMiddleware::class])->group(function () {
     // Rotas de Categoria
-    Route::get('/category', [CategoryController::class, 'index']);
-    Route::get('/category/create', [CategoryController::class, 'create']);
-    Route::post('/category', [CategoryController::class, 'store']);
-    Route::get('/category/edit/{category}', [CategoryController::class, 'edit']);
-    Route::post('/category/update/{category}', [CategoryController::class, 'update']);
-    Route::get('/category/delete/{category}', [CategoryController::class, 'destroy']);
+    Route::get('/category', [CategoryController::class, 'index'])->name('category.index');
+    Route::get('/category/create', [CategoryController::class, 'create'])->name('category.create');
+    Route::post('/category', [CategoryController::class, 'store'])->name('category.store');
+    Route::get('/category/edit/{category}', [CategoryController::class, 'edit'])->name('category.edit');
+    Route::post('/category/update/{category}', [CategoryController::class, 'update'])->name('category.update');
+    Route::get('/category/delete/{category}', [CategoryController::class, 'destroy'])->name('category.destroy');
 
     // Rotas de Produto
-    Route::get('/product', [ProductController::class, 'index']);
-    Route::get('/product/create', [ProductController::class, 'create']);
-    Route::post('/product', [ProductController::class, 'store']);
-    Route::get('/product/edit/{product}', [ProductController::class, 'edit']);
-    Route::post('/product/update/{product}', [ProductController::class, 'update']);
-    Route::get('/product/delete/{product}', [ProductController::class, 'destroy']);
+    Route::get('/product', [ProductController::class, 'index'])->name('product.index');
+    Route::get('/product/create', [ProductController::class, 'create'])->name('product.create');
+    Route::post('/product', [ProductController::class, 'store'])->name('product.store');
+    Route::get('/product/edit/{product}', [ProductController::class, 'edit'])->name('product.edit');
+    Route::post('/product/update/{product}', [ProductController::class, 'update'])->name('product.update');
+    Route::get('/product/delete/{product}', [ProductController::class, 'destroy'])->name('product.destroy');
 });
 
 require __DIR__.'/auth.php';
