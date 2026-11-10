@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Route;
 // ================= ROTAS DO CLIENTE (VITRINE PÚBLICA) =================
 Route::get('/', [StoreController::class, 'index'])->name('client.home');
 Route::get('/loja/categoria/{id}', [StoreController::class, 'showCategory'])->name('client.category');
+Route::get('/loja/produto/{id}', [StoreController::class, 'showProduct'])->name('client.product.show');
 Route::view('/sobre-nos', 'client.about')->name('client.about');
 Route::view('/politica-de-privacidade', 'client.privacy')->name('client.privacy');
 Route::view('/termos-de-uso', 'client.terms')->name('client.terms');

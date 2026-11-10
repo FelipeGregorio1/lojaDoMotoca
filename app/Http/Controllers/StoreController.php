@@ -9,8 +9,7 @@ use Illuminate\Http\Request;
 class StoreController extends Controller
 {
     // 1. Tela Inicial do Cliente (homeClient)
-    public function index(Request $request)
-    {
+    public function index(Request $request){
         $categories = Category::all();
 
         // Se o cliente digitou algo na barra "Buscar produtos...", filtra os produtos
@@ -25,8 +24,7 @@ class StoreController extends Controller
     }
 
     // 2. Tela de uma Categoria Específica (quando o cliente clica em "Capacetes", por exemplo)
-    public function showCategory($id)
-    {
+    public function showCategory($id){
         // Todas as categorias para manter o menu do topo funcionando
         $categories = Category::all();
 
@@ -34,5 +32,12 @@ class StoreController extends Controller
         $currentCategory = Category::with('Products')->findOrFail($id);
 
         return view('client.category', compact('categories', 'currentCategory'));
+    }
+
+    public function showProduct($id){
+        $product = Product::findOrFail($id);
+        $categories = Category::all();
+
+        return view('client.show', compact('product', 'categories'));
     }
 }

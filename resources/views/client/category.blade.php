@@ -20,7 +20,7 @@
     <div class="container navbar-content">
       
       <a href="{{ route('client.home') }}" class="navbar-logo" aria-label="Página Inicial Loja do Motoca">
-        <img class="logo-img" src="../../img/logoLDM.png" alt="Loja do Motoca">
+        <img class="logo-img" src="{{ asset('img/logoLDM.png') }}" alt="Loja do Motoca">
       </a>
 
       <form class="search-form" action="{{ route('client.home') }}" method="GET">
@@ -135,20 +135,35 @@
         <div class="products-grid">
           @forelse($currentCategory->Products as $p)
             <article class="product-card">
-              <div class="product-thumb">
-                <img src="{{ $p->image ?? 'https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=600&q=80' }}" alt="{{ $p->name }}">
+              
+              <!-- 1. Imagem puxando do storage + Link para a página do produto -->
+              <a href="{{ route('client.product.show', $p->id) }}" class="product-thumb" style="display: block; text-decoration: none;">
+                <img src="{{ $p->image ? asset('storage/' . $p->image) : 'https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=600&q=80' }}" alt="{{ $p->name }}">
                 <span class="badge-tag">OFERTA</span>
                 <span class="badge-discount">-15%</span>
-              </div>
+              </a>
+
               <div class="product-info">
                 <span class="product-cat-label">{{ $currentCategory->name }}</span>
-                <h2 class="product-title">{{ $p->name }}</h2>
+                
+                <!-- 2. Título com link para a página do produto -->
+                <h2 class="product-title">
+                  <a href="{{ route('client.product.show', $p->id) }}" style="color: inherit; text-decoration: none;">
+                    {{ $p->name }}
+                  </a>
+                </h2>
+
                 <div class="product-pricing">
                   <span class="price-current">R$ {{ number_format((float) $p->price, 2, ',', '.') }}</span>
                   <span class="price-old">R$ {{ number_format((float) $p->price * 1.18, 2, ',', '.') }}</span>
                 </div>
-                <button type="button" class="btn-add-cart">ADICIONAR</button>
+
+                <!-- 3. Botão levando para a página do produto -->
+                <a href="{{ route('client.product.show', $p->id) }}" class="btn-add-cart" style="display: inline-block; text-align: center; text-decoration: none;">
+                  VER PRODUTO
+                </a>
               </div>
+
             </article>
           @empty
             <p class="empty-catalog-message">
