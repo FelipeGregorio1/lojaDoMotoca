@@ -20,7 +20,7 @@
     <div class="container navbar-content">
       
       <a href="{{ route('client.home') }}" class="navbar-logo" aria-label="Página Inicial Loja do Motoca">
-        <img class="logo-img" src="img/logoLDM.png" alt="Loja do Motoca">
+        <img class="logo-img" src="../../img/logoLDM.png" alt="Loja do Motoca">
       </a>
 
       <form class="search-form" action="{{ route('client.home') }}" method="GET">
@@ -189,7 +189,6 @@
   <footer class="site-footer">
     <div class="container footer-content">
       <div class="footer-brand">
-        <img class="footer-logo" src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?w=100" alt="Loja do Motoca">
         <span class="footer-copy">&copy; 2026 Todos os direitos reservados.</span>
       </div>
 

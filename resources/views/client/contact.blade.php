@@ -16,7 +16,7 @@
     <div class="container navbar-content">
       
       <a href="{{ route('client.home') }}" class="navbar-logo" aria-label="Página Inicial Loja do Motoca">
-        <img class="logo-img" src="{{ asset('img/logoLDM.png') }}" alt="Loja do Motoca">
+        <img class="logo-img" src="../../img/logoLDM.png" alt="Loja do Motoca">
       </a>
 
       <form class="search-form" action="{{ route('client.home') }}" method="GET">
@@ -149,7 +149,7 @@
         <article class="contact-card">
           <span class="contact-icon" aria-hidden="true">📩</span>
           <h2 class="contact-label">E-MAIL</h2>
-          <strong class="contact-value">contato@lojadomotoca.com</strong>
+          <strong class="contact-value">ctt@lojadomotoca.com</strong>
           <p class="contact-meta">Resposta em até 24h úteis</p>
           <a href="mailto:contato@lojadomotoca.com" class="btn-channel">
             Enviar e-mail <span aria-hidden="true">→</span>
@@ -187,7 +187,6 @@
   <footer class="site-footer">
     <div class="container footer-content">
       <div class="footer-brand">
-        <img class="footer-logo" src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?w=100" alt="Loja do Motoca">
         <span class="footer-copy">© 2026 Todos os direitos reservados.</span>
       </div>
 

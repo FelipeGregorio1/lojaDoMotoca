@@ -218,7 +218,6 @@
   <footer class="site-footer">
     <div class="container footer-content">
       <div class="footer-brand">
-        <img class="footer-logo" src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?w=100" alt="Loja do Motoca">
         <span class="footer-copy">&copy; 2026 Todos os direitos reservados.</span>
       </div>
 
