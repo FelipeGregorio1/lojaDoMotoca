@@ -65,6 +65,22 @@
           <span>Perfil</span>
         </a>
 
+        @auth
+          @if(auth()->user()->is_admin)
+            <a href="{{ route('product.index') }}" class="action-item action-admin">
+              <div class="action-icon-box">
+                <svg class="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="3" width="7" height="7"></rect>
+                  <rect x="14" y="3" width="7" height="7"></rect>
+                  <rect x="14" y="14" width="7" height="7"></rect>
+                  <rect x="3" y="14" width="7" height="7"></rect>
+                </svg>
+              </div>
+              <span>Admin</span>
+            </a>
+          @endif
+        @endauth
+
         @guest
           <a href="{{ route('login') }}" class="btn-login">ENTRAR</a>
         @endguest
