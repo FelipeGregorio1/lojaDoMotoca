@@ -38,7 +38,7 @@
           <!-- Esquerda: Logo + Badge ADMIN -->
           <div class="admin-brand">
               <a href="{{ url('/') }}" class="admin-brand__logo-link" title="Loja do Motoca">
-                  <img src="img/logoLDM.png" alt="Logo Loja do Motoca" class="admin-brand__logo">
+                  <img src="{{ asset('img/logoLDM.png') }}" alt="Logo Loja do Motoca" class="admin-brand__logo">
               </a>
               <span class="admin-brand__badge">ADMIN</span>
           </div>
