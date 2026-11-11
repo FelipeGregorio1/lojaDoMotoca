@@ -121,12 +121,6 @@
     <!-- ================= LISTAGEM DE PRODUTOS DA CATEGORIA ================= -->
     <section class="section-offers">
       <div class="container">
-        
-        <nav class="breadcrumb" aria-label="Breadcrumb">
-          <a href="{{ route('client.home') }}">Início</a>
-          <span>/</span>
-          <strong>{{ $currentCategory->name }}</strong>
-        </nav>
 
         <header class="section-header">
           <div>
@@ -142,32 +136,32 @@
           @forelse($currentCategory->Products as $p)
             <article class="product-card">
               
-              <!-- 1. Imagem puxando do storage + Link para a página do produto -->
-              <a href="{{ route('client.product.show', $p->id) }}" class="product-thumb" style="display: block; text-decoration: none;">
-                <img src="{{ $p->image ? asset('storage/' . $p->image) : 'https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=600&q=80' }}" alt="{{ $p->name }}">
+             <!-- 1. Clique na foto leva para a página do produto -->
+              <a href="{{ route('client.product.show', $p->id) }}" class="product-thumb" style="display: block;">
+                <img src="{{ $p->image ? asset('storage/' . $p->image) : '' }}" alt="{{ $p->name }}">
                 <span class="badge-tag">OFERTA</span>
                 <span class="badge-discount">-15%</span>
               </a>
 
+              <!-- 2. Mantém a sua classe original .product-info -->
               <div class="product-info">
-                <span class="product-cat-label">{{ $currentCategory->name }}</span>
                 
-                <!-- 2. Título com link para a página do produto -->
-                <h2 class="product-title">
-                  <a href="{{ route('client.product.show', $p->id) }}" style="color: inherit; text-decoration: none;">
-                    {{ $p->name }}
-                  </a>
-                </h2>
-
-                <div class="product-pricing">
-                  <span class="price-current">R$ {{ number_format((float) $p->price, 2, ',', '.') }}</span>
-                  <span class="price-old">R$ {{ number_format((float) $p->price * 1.18, 2, ',', '.') }}</span>
-                </div>
-
-                <!-- 3. Botão levando para a página do produto -->
-                <a href="{{ route('client.product.show', $p->id) }}" class="btn-add-cart" style="display: inline-block; text-align: center; text-decoration: none;">
-                  VER PRODUTO
+                <a href="{{ route('client.product.show', $p->id) }}" style="display: flex; flex-direction: column; flex: 1; text-decoration: none; color: inherit;">
+                  <span class="product-cat-label">{{ $currentCategory->name }}</span>
+                  <h2 class="product-title">{{ $p->name }}</h2>
+                  <div class="product-pricing">
+                    <span class="price-current">R$ {{ number_format((float) $p->price, 2, ',', '.') }}</span>
+                    <span class="price-old">R$ {{ number_format((float) $p->price * 1.18, 2, ',', '.') }}</span>
+                  </div>
                 </a>
+
+                <!-- 3. Botão adicionando direto ao carrinho -->
+                <form action="{{ route('cart.store', $p->id) }}" method="POST" style="width: 100%;">
+                  @csrf
+                  <input type="hidden" name="quantity" value="1">
+                  <button type="submit" class="btn-add-cart">ADICIONAR AO CARRINHO</button>
+                </form>
+
               </div>
 
             </article>

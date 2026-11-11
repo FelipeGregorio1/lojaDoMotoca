@@ -167,37 +167,35 @@
       <div class="container">
         <header class="section-header">
           <h2 class="section-title">PRODUTOS <span>EM DESTAQUE</span></h2>
-          <a href="#ofertas" class="link-view-all">VER TODAS &rarr;</a>
         </header>
 
         <div class="products-grid">
           @forelse($products as $p)
             <article class="product-card">
               
-              <!-- 1. Transformamos a div da imagem em um <a> clicável -->
-              <a href="{{ route('client.product.show', $p->id) }}" class="product-thumb" style="display: block; text-decoration: none;">
+              <!-- 1. Área clicável do Card (Imagem + Textos + Preço) que abre a página do produto -->
+              <a href="{{ route('client.product.show', $p->id) }}" class="product-thumb" style="display: block;">
                 <img src="{{ $p->image ? asset('storage/' . $p->image) : '' }}" alt="{{ $p->name }}">
               </a>
 
+              <!-- 2. Mantém a sua classe original .product-info com o padding certinho -->
               <div class="product-info">
-                <span class="product-cat-label">{{ $p->Category?->name ?? 'Acessórios' }}</span>
                 
-                <!-- 2. Adicionamos o link no título mantendo a cor original -->
-                <h3 class="product-title">
-                  <a href="{{ route('client.product.show', $p->id) }}" style="color: inherit; text-decoration: none;">
-                    {{ $p->name }}
-                  </a>
-                </h3>
-
-                <div class="product-pricing">
-                  <span class="price-current">R$ {{ number_format((float) $p->price, 2, ',', '.') }}</span>
-                  <span class="price-old">R$ {{ number_format((float) $p->price * 1.18, 2, ',', '.') }}</span>
-                </div>
-
-                <a href="{{ route('client.product.show', $p->id) }}" class="btn-add-cart" style="display: inline-block; text-align: center; text-decoration: none;">
-                  VER PRODUTO
+                <!-- Clique na categoria, título ou preço também leva para a página do produto -->
+                <a href="{{ route('client.product.show', $p->id) }}" style="display: flex; flex-direction: column; flex: 1; text-decoration: none; color: inherit;">
+                  <span class="product-cat-label">{{ $p->Category?->name ?? 'Acessórios' }}</span>
+                  <h3 class="product-title">{{ $p->name }}</h3>
+                  <div class="product-pricing">
+                    <span class="price-current">R$ {{ number_format((float) $p->price, 2, ',', '.') }}</span>
+                  </div>
                 </a>
-              </div>
+
+                <!-- 3. Botão dentro de .product-info adicionando direto ao carrinho -->
+                <form action="{{ route('cart.store', $p->id) }}" method="POST" style="width: 100%;">
+                  @csrf
+                  <input type="hidden" name="quantity" value="1">
+                  <button type="submit" class="btn-add-cart">ADICIONAR AO CARRINHO</button>
+                </form>
 
             </article>
           @empty
