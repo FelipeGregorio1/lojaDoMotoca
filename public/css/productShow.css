@@ -394,7 +394,7 @@
   height: 48px;
   border-radius: 10px;
   border: none;
-  background-color: #cbd5e1;
+  background-color: #dc2626; /* Vermelho ativo direto */
   color: #ffffff;
   font-weight: 800;
   font-size: 13px;
@@ -402,8 +402,8 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
-  cursor: not-allowed;
-  transition: background-color 0.2s ease;
+  cursor: pointer; /* Mãozinha de clique normal */
+  transition: background-color 0.2s ease, transform 0.1s ease;
 }
 
 .btn-add-cart.enabled {

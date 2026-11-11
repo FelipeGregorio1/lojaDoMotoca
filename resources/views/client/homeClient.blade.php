@@ -43,14 +43,20 @@
           <span>Favoritos</span>
         </a>
 
-        <a href="#" class="action-item">
+        @php
+          $cartCount = auth()->check() ? \App\Models\Cart::where('user_id', auth()->id())->sum('quantity') : 0;
+        @endphp
+
+        <a href="{{ route('cart.index') }}" class="action-item">
           <div class="action-icon-box">
             <svg class="action-icon" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
               <line x1="3" y1="6" x2="21" y2="6"></line>
               <path d="M16 10a4 4 0 0 1-8 0"></path>
             </svg>
-            <span class="cart-badge">2</span>
+            @if($cartCount > 0)
+                <span class="cart-badge">{{ $cartCount }}</span>
+            @endif
           </div>
           <span>Carrinho</span>
         </a>
@@ -171,8 +177,6 @@
               <!-- 1. Transformamos a div da imagem em um <a> clicável -->
               <a href="{{ route('client.product.show', $p->id) }}" class="product-thumb" style="display: block; text-decoration: none;">
                 <img src="{{ $p->image ? asset('storage/' . $p->image) : '' }}" alt="{{ $p->name }}">
-                <span class="badge-tag">OFERTA</span>
-                <span class="badge-discount">-15%</span>
               </a>
 
               <div class="product-info">
@@ -190,7 +194,6 @@
                   <span class="price-old">R$ {{ number_format((float) $p->price * 1.18, 2, ',', '.') }}</span>
                 </div>
 
-                <!-- 3. Trocamos o <button> por <a class="btn-add-cart"> para abrir a página do produto -->
                 <a href="{{ route('client.product.show', $p->id) }}" class="btn-add-cart" style="display: inline-block; text-align: center; text-decoration: none;">
                   VER PRODUTO
                 </a>
