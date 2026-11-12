@@ -22,7 +22,7 @@
             <nav class="admin-nav" aria-label="Menu Administrativo">
                 <ul class="admin-nav__list">
                     
-                    <!-- Visão Geral (Futuro) -->
+                    <!-- Visão Geral -->
                     <li class="admin-nav__item">
                         <a href="#" class="admin-nav__link {{ request()->routeIs('admin.dashboard*') ? 'is-active' : '' }}">
                             <svg class="admin-nav__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -62,9 +62,9 @@
                         </a>
                     </li>
 
-                    <!-- Pedidos (Futuro) -->
+                    <!-- Pedidos -->
                     <li class="admin-nav__item">
-                        <a href="#" class="admin-nav__link {{ request()->routeIs('*pedidos*') ? 'is-active' : '' }}">
+                        <a href="{{ route('admin.orders.index') }}" class="admin-nav__link {{ request()->routeIs('*pedidos*') ? 'is-active' : '' }}">
                             <svg class="admin-nav__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                                 <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
                                 <line x1="3" y1="6" x2="21" y2="6"></line>
@@ -74,9 +74,9 @@
                         </a>
                     </li>
 
-                    <!-- Clientes (Futuro) -->
+                    <!-- Clientes -->
                     <li class="admin-nav__item">
-                        <a href="#" class="admin-nav__link {{ request()->routeIs('*clientes*') ? 'is-active' : '' }}">
+                        <a href="{{ route('admin.clients.index') }}" class="admin-nav__link {{ request()->routeIs('*clientes*') ? 'is-active' : '' }}">
                             <svg class="admin-nav__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                                 <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
                                 <circle cx="9" cy="7" r="4"></circle>

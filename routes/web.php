@@ -5,6 +5,8 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ClientAdminController;
 use App\Http\Middleware\AdminMiddleware;
 use Illuminate\Support\Facades\Route;
 
@@ -19,13 +21,17 @@ Route::view('/contato', 'client.contact')->name('client.contact');
 
 // ================= ROTAS DE QUALQUER USUÁRIO LOGADO (CLIENTE OU ADMIN) =================
 Route::middleware('auth')->group(function () {
+    //Rotas de Perfil
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    //Rotas de Carrinho
     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
     Route::post('/cart/store/{product}', [CartController::class, 'store'])->name('cart.store');
     Route::post('/cart/update/{cart}', [CartController::class, 'update'])->name('cart.update');
     Route::get('/cart/delete/{cart}', [CartController::class, 'destroy'])->name('cart.destroy');
+    Route::post('/cart/checkout', [OrderController::class, 'checkout'])->name('cart.checkout');
 });
 
 // ================= ROTAS EXCLUSIVAS DO ADMIN (GERENCIAMENTO) =================
@@ -45,6 +51,14 @@ Route::middleware(['auth', AdminMiddleware::class])->group(function () {
     Route::get('/product/edit/{product}', [ProductController::class, 'edit'])->name('product.edit');
     Route::post('/product/update/{product}', [ProductController::class, 'update'])->name('product.update');
     Route::get('/product/delete/{product}', [ProductController::class, 'destroy'])->name('product.destroy');
+
+    //Rotas de Clientes
+    Route::get('/clientes', [ClientAdminController::class, 'index'])->name('admin.clients.index');
+    Route::post('/clientes/toggle-admin/{user}', [ClientAdminController::class, 'toggleAdmin'])->name('admin.clients.toggle');
+    Route::get('/clientes/delete/{user}', [ClientAdminController::class, 'destroy'])->name('admin.clients.destroy');
+
+    Route::get('/pedidos', [OrderController::class, 'index'])->name('admin.orders.index');
+    Route::post('/pedidos/status/{order}', [OrderController::class, 'updateStatus'])->name('admin.orders.status');
 });
 
 require __DIR__.'/auth.php';

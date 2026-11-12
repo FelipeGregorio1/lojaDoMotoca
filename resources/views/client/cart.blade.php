@@ -229,14 +229,12 @@
               </span>
             </div>
 
-            <form action="#" method="GET" class="coupon-form" onsubmit="event.preventDefault();">
-              <input type="text" placeholder="Cupom de desconto" class="coupon-input">
-              <button type="submit" class="coupon-btn">OK</button>
+            <form action="{{ route('cart.checkout') }}" method="POST">
+              @csrf
+              <button type="submit" class="btn-checkout">
+                FINALIZAR COMPRA
+              </button>
             </form>
-
-            <button type="button" class="btn-checkout">
-              FINALIZAR COMPRA
-            </button>
 
             <div class="secure-checkout-info">
               <p class="secure-text">🔒 Compra 100% segura</p>
