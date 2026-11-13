@@ -29,11 +29,18 @@
       </form>
 
       <nav class="nav-actions" aria-label="Menu do usuário">
-        <a href="#" class="action-item">
+        @php
+          $favNavbarCount = auth()->check() ? \App\Models\Favorite::where('user_id', auth()->id())->count() : 0;
+        @endphp
+
+        <a href="{{ auth()->check() ? route('profile.edit', ['tab' => 'favoritos']) : route('login') }}" class="action-item">
           <div class="action-icon-box">
             <svg class="action-icon" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
             </svg>
+            @if($favNavbarCount > 0)
+              <span class="cart-badge">{{ $favNavbarCount }}</span>
+            @endif
           </div>
           <span>Favoritos</span>
         </a>
@@ -142,23 +149,24 @@
 
           <h1 class="product-title">{{ $product->name }}</h1>
 
-          <div class="product-rating-row">
-            <div class="stars">★★★★★</div>
-            <span class="rating-count">4.9 (128 avaliações)</span>
-            <span class="divider">|</span>
-            <span class="product-sku">Cód. C{{ $product->id }}-MOT</span>
-          </div>
-
           <div class="product-price-box">
             @php
-              $oldPrice = $product->price * 1.20; // Simula o preço antigo (+20%) caso não tenha no banco
-              $installment = $product->price / 12;
+              $rawPrice = (string) ($product->price ?? 0);
+              if (str_contains($rawPrice, ',')) {
+                  $rawPrice = str_replace('.', '', $rawPrice);
+                  $rawPrice = str_replace(',', '.', $rawPrice);
+              }
+              $cleanPrice = (float) preg_replace('/[^0-9.]/', '', $rawPrice);
+
+              $oldPrice = $cleanPrice * 1.20;
+              $installment = $cleanPrice / 12;
             @endphp
-            <div class="price-Line">
-              <span class="current-price">R$ {{ number_format($product->price, 2, ',', '.') }}</span>
+
+            <div class="price-line">
+              <span class="current-price">R$ {{ number_format($cleanPrice, 2, ',', '.') }}</span>
             </div>
             <p class="installments-text">
-              ou 12x de <strong>R$ {{ number_format($installment, 2, ',', '.') }}</strong> sem juros
+              em até <strong>12x de R$ {{ number_format($installment, 2, ',', '.') }}</strong> sem juros
             </p>
           </div>
 
@@ -171,29 +179,41 @@
 
           <hr class="section-divider">
 
-          <!-- Ações de Compra (Quantidade + Botão) -->
-          <form action="{{ route('cart.store', $product->id) }}" method="POST" class="purchase-actions">
-            @csrf
-            <input type="hidden" name="product_id" value="{{ $product->id }}">
-            <input type="hidden" name="size" id="selectedSizeInput" value="">
+          @php
+              $isFav = auth()->check() && \App\Models\Favorite::where('user_id', auth()->id())->where('product_id', $product->id)->exists();
+            @endphp
 
-            <div class="actions-row">
-              <div class="qty-selector">
-                <button type="button" class="qty-btn" onclick="changeQty(-1)">−</button>
-                <input type="number" name="quantity" id="qtyInput" value="1" min="1" readonly>
-                <button type="button" class="qty-btn" onclick="changeQty(1)">+</button>
-              </div>
+            <div style="display: flex; align-items: stretch; gap: 12px; width: 100%; margin: 24px 0;">
+              
+              <!-- 1. Formulário: Quantidade + Adicionar ao Carrinho (Lado a Lado) -->
+              <form action="{{ route('cart.store', $product->id) }}" method="POST" style="display: flex; align-items: stretch; gap: 12px; flex: 1; margin: 0;">
+                @csrf
 
-              <button type="submit" id="addToCartBtn" class="btn-add-cart">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <circle cx="9" cy="21" r="1"></circle>
-                  <circle cx="20" cy="21" r="1"></circle>
-                  <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-                </svg>
-                <span>ADICIONAR AO CARRINHO</span>
-              </button>
+                <div class="qty-selector" aria-label="Quantidade" style="display: inline-flex; align-items: center; justify-content: space-between; width: 120px; height: 48px; flex-shrink: 0; border: 1px solid #e2e8f0; border-radius: 10px; background: #f8fafc; padding: 0 6px;">
+                  <button type="button" class="qty-btn" id="qtyMinus" aria-label="Diminuir quantidade" style="width: 32px; height: 32px; border: none; background: transparent; font-size: 18px; font-weight: 700; color: #475569; cursor: pointer;">−</button>
+                  <input type="number" name="quantity" id="qtyInput" class="qty-input" value="1" min="1" readonly style="width: 36px; text-align: center; border: none; background: transparent; font-size: 14px; font-weight: 800; color: #0f172a; outline: none;">
+                  <button type="button" class="qty-btn" id="qtyPlus" aria-label="Aumentar quantidade" style="width: 32px; height: 32px; border: none; background: transparent; font-size: 18px; font-weight: 700; color: #475569; cursor: pointer;">+</button>
+                </div>
+
+                <button type="submit" id="addToCartBtn" class="btn-add-cart" style="flex: 1; height: 48px; margin: 0; display: inline-flex; align-items: center; justify-content: center; gap: 10px; border-radius: 10px;">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="9" cy="21" r="1"></circle>
+                    <circle cx="20" cy="21" r="1"></circle>
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                  </svg>
+                  <span>ADICIONAR AO CARRINHO</span>
+                </button>
+              </form>
+
+              <!-- 2. Formulário: Botão Favoritar (Coração) -->
+              <form action="{{ route('favorites.toggle', $product->id) }}" method="POST" style="margin: 0; display: flex;">
+                @csrf
+                <button type="submit" title="Favoritar produto" style="width: 48px; height: 48px; flex-shrink: 0; border-radius: 10px; border: 1px solid {{ $isFav ? '#fecdd3' : '#e2e8f0' }}; background: {{ $isFav ? '#fff1f2' : '#f8fafc' }}; color: {{ $isFav ? '#e11d48' : '#94a3b8' }}; font-size: 20px; line-height: 1; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; transition: all 0.2s;">
+                  ♥
+                </button>
+              </form>
+
             </div>
-          </form>
 
           <!-- Benefícios -->
           <div class="trust-features">

@@ -37,6 +37,20 @@ class OrderController extends Controller
         return back();
     }
 
+    public function checkoutForm(){
+        $carts = Cart::where('user_id', auth()->id())->with('Product')->get();
+
+        // Se o carrinho estiver vazio, volta para a tela do carrinho
+        if ($carts->isEmpty()) {
+            return redirect()->route('cart.index');
+        }
+
+        return view('client.checkout', [
+            'carts' => $carts,
+            'user'  => auth()->user(),
+        ]);
+    }
+
     // Quando o cliente clica em "FINALIZAR COMPRA" lá no carrinho
     public function checkout(){
         $carts = Cart::where('user_id', auth()->id())->with('Product')->get();
@@ -51,7 +65,13 @@ class OrderController extends Controller
             $product = $cart->Product;
 
             if ($product) {
-                $subtotal += $product->price * $cart->quantity;
+                $rawPrice = (string) $product->price;
+                if (str_contains($rawPrice, ',')) {
+                    $rawPrice = str_replace(',', '.', str_replace('.', '', $rawPrice));
+                }
+                $cleanPrice = (float) preg_replace('/[^0-9.]/', '', $rawPrice);
+
+                $subtotal += $cleanPrice * (int) $cart->quantity;
 
                 if (isset($product->stock)) {
                     $product->update([

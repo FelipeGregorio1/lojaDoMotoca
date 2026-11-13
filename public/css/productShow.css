@@ -245,15 +245,6 @@
   margin: 6px 0 12px;
 }
 
-.product-rating-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 13px;
-  color: #64748b;
-  margin-bottom: 24px;
-}
-
 .stars {
   color: #dc2626;
   font-size: 15px;
@@ -602,6 +593,41 @@
 
 .footer-links a:hover {
     color: var(--text-dark);
+}
+
+.purchase-actions-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  margin-bottom: 24px;
+}
+
+.purchase-actions-row .purchase-actions {
+  margin-bottom: 0; /* Remove a margem duplicada se houver */
+}
+
+.btn-fav-show {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  background-color: #f8fafc;
+  color: #94a3b8;
+  font-size: 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-fav-show:hover,
+.btn-fav-show.is-active {
+  background-color: #fff1f2;
+  border-color: #fecdd3;
+  color: #e11d48;
 }
 
 /* Responsivo para Celulares */

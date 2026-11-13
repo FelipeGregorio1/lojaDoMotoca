@@ -17,9 +17,18 @@
 <body>
 
   @php
-    // Calcula a quantidade total de itens e o valor subtotal
-    $totalItems = $carts->sum('quantity');
-    $subtotal = $carts->sum(fn($item) => $item->Product->price * $item->quantity);
+    // Função rápida para garantir que qualquer preço vire número (float) sem erro
+    $toFloat = function ($val) {
+        $v = (string) $val;
+        if (str_contains($v, ',')) {
+            $v = str_replace('.', '', $v);
+            $v = str_replace(',', '.', $v);
+        }
+        return (float) preg_replace('/[^0-9.]/', '', $v);
+    };
+
+    $totalItems = (int) $carts->sum('quantity');
+    $subtotal = $carts->sum(fn($item) => $toFloat($item->Product?->price ?? 0) * (int) $item->quantity);
   @endphp
 
   <!-- ================= 1. CABEÇALHO / NAVBAR ================= -->
@@ -41,11 +50,18 @@
       </form>
 
       <nav class="nav-actions" aria-label="Menu do usuário">
-        <a href="#" class="action-item">
+        @php
+          $favNavbarCount = auth()->check() ? \App\Models\Favorite::where('user_id', auth()->id())->count() : 0;
+        @endphp
+
+        <a href="{{ auth()->check() ? route('profile.edit', ['tab' => 'favoritos']) : route('login') }}" class="action-item">
           <div class="action-icon-box">
             <svg class="action-icon" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
             </svg>
+            @if($favNavbarCount > 0)
+              <span class="cart-badge">{{ $favNavbarCount }}</span>
+            @endif
           </div>
           <span>Favoritos</span>
         </a>
@@ -180,7 +196,7 @@
                       <!-- Preço e Remover -->
                       <div class="cart-item-price-block">
                         <strong class="cart-item-price">
-                          R$ {{ number_format($cart->Product->price * $cart->quantity, 2, ',', '.') }}
+                          R$ {{ number_format($toFloat($cart->Product?->price ?? 0) * (int) $cart->quantity, 2, ',', '.') }}
                         </strong>
                         <a href="{{ route('cart.destroy', $cart->id) }}" class="cart-remove-link">Remover</a>
                       </div>
@@ -229,15 +245,11 @@
               </span>
             </div>
 
-            <form action="{{ route('cart.checkout') }}" method="POST">
-              @csrf
-              <button type="submit" class="btn-checkout">
-                FINALIZAR COMPRA
-              </button>
-            </form>
+            <a href="{{ route('cart.checkout.form') }}" class="btn-checkout" style="text-decoration: none;">
+              FINALIZAR COMPRA
+            </a>
 
             <div class="secure-checkout-info">
-              <p class="secure-text">🔒 Compra 100% segura</p>
               <div class="payment-badges">
                 <span class="pay-badge">Visa</span>
                 <span class="pay-badge">Master</span>

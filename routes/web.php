@@ -6,6 +6,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\ClientAdminController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Middleware\AdminMiddleware;
@@ -25,6 +26,7 @@ Route::middleware('auth')->group(function () {
     //Rotas de Perfil
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::patch('/profile/address', [ProfileController::class, 'updateAddress'])->name('profile.address.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     //Rotas de Carrinho
@@ -32,9 +34,14 @@ Route::middleware('auth')->group(function () {
     Route::post('/cart/store/{product}', [CartController::class, 'store'])->name('cart.store');
     Route::post('/cart/update/{cart}', [CartController::class, 'update'])->name('cart.update');
     Route::get('/cart/delete/{cart}', [CartController::class, 'destroy'])->name('cart.destroy');
-    Route::post('/cart/checkout', [OrderController::class, 'checkout'])->name('cart.checkout');
 
+    Route::get('/checkout', [OrderController::class, 'checkoutForm'])->name('cart.checkout.form');
+    Route::post('/checkout', [OrderController::class, 'checkout'])->name('cart.checkout');
     Route::post('/pedidos/cancelar/{order}', [OrderController::class, 'cancel'])->name('client.orders.cancel');
+
+    //Rotas de Favoritos
+    Route::post('/favorites/toggle/{product}', [FavoriteController::class, 'toggle'])->name('favorites.toggle');
+    Route::get('/favorites/delete/{favorite}', [FavoriteController::class, 'destroy'])->name('favorites.destroy');
 });
 
 // ================= ROTAS EXCLUSIVAS DO ADMIN (GERENCIAMENTO) =================

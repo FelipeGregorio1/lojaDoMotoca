@@ -34,11 +34,18 @@
       </form>
 
       <nav class="nav-actions" aria-label="Menu do usuário">
-        <a href="#" class="action-item">
+        @php
+          $favNavbarCount = auth()->check() ? \App\Models\Favorite::where('user_id', auth()->id())->count() : 0;
+        @endphp
+
+        <a href="{{ auth()->check() ? route('profile.edit', ['tab' => 'favoritos']) : route('login') }}" class="action-item">
           <div class="action-icon-box">
             <svg class="action-icon" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
             </svg>
+            @if($favNavbarCount > 0)
+              <span class="cart-badge">{{ $favNavbarCount }}</span>
+            @endif
           </div>
           <span>Favoritos</span>
         </a>
@@ -170,17 +177,27 @@
 
         <div class="products-grid">
           @forelse($products as $p)
-            <article class="product-card">
+            @php
+              $isFav = auth()->check() && \App\Models\Favorite::where('user_id', auth()->id())->where('product_id', $p->id)->exists();
+            @endphp
+
+            <article class="product-card" style="position: relative;">
               
-              <!-- 1. Área clicável do Card (Imagem + Textos + Preço) que abre a página do produto -->
+              <!-- Botão de Coração no canto superior direito da foto -->
+              <form action="{{ route('favorites.toggle', $p->id) }}" method="POST" style="position: absolute; top: 10px; right: 10px; z-index: 10;">
+                @csrf
+                <button type="submit" title="Favoritar produto" style="width: 34px; height: 34px; border-radius: 50%; border: none; background: #ffffff; color: {{ $isFav ? '#e11d48' : '#94a3b8' }}; font-size: 18px; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.15); display: flex; align-items: center; justify-content: center;">
+                  ♥
+                </button>
+              </form>
+
+              <!-- 1. Clique na foto leva para a página do produto -->
               <a href="{{ route('client.product.show', $p->id) }}" class="product-thumb" style="display: block;">
                 <img src="{{ $p->image ? asset('storage/' . $p->image) : '' }}" alt="{{ $p->name }}">
               </a>
 
-              <!-- 2. Mantém a sua classe original .product-info com o padding certinho -->
+              <!-- 2. Informações e Botão Adicionar ao Carrinho -->
               <div class="product-info">
-                
-                <!-- Clique na categoria, título ou preço também leva para a página do produto -->
                 <a href="{{ route('client.product.show', $p->id) }}" style="display: flex; flex-direction: column; flex: 1; text-decoration: none; color: inherit;">
                   <span class="product-cat-label">{{ $p->Category?->name ?? 'Acessórios' }}</span>
                   <h3 class="product-title">{{ $p->name }}</h3>
@@ -189,12 +206,12 @@
                   </div>
                 </a>
 
-                <!-- 3. Botão dentro de .product-info adicionando direto ao carrinho -->
                 <form action="{{ route('cart.store', $p->id) }}" method="POST" style="width: 100%;">
                   @csrf
                   <input type="hidden" name="quantity" value="1">
                   <button type="submit" class="btn-add-cart">ADICIONAR AO CARRINHO</button>
                 </form>
+              </div>
 
             </article>
           @empty

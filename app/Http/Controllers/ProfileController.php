@@ -39,6 +39,21 @@ class ProfileController extends Controller
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }
 
+    public function updateAddress(Request $request)
+    {
+        $request->user()->update([
+            'cep'          => $request->cep,
+            'street'       => $request->street,
+            'number'       => $request->number,
+            'complement'   => $request->complement,
+            'neighborhood' => $request->neighborhood,
+            'city'         => $request->city,
+            'state'        => mb_strtoupper($request->state),
+        ]);
+
+        return Redirect::route('profile.edit', ['tab' => 'enderecos'])->with('status', 'address-updated');
+    }
+
     /**
      * Delete the user's account.
      */

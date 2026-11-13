@@ -24,14 +24,13 @@
     $phone = $currentUser?->phone ?? '(xx) x xxxx-xxxx';
 
     // Divide o nome completo em Nome e Sobrenome
-    $nameParts = explode(' ', trim($fullName), 2);
-    $firstName = $nameParts[0] ?? 'Nome';
-    $lastName = $currentUser?->last_name ?? ($nameParts[1] ?? 'Sobrenome');
+    $firstName = $currentUser?->name ?? 'Cliente';
+    $lastName  = $currentUser?->last_name ?? '';
+    $displayName = trim($firstName . ' ' . $lastName);
 
-    // Gera as 2 iniciais para o avatar (ex: "NS")
-    $firstInitial = mb_substr($firstName, 0, 1);
-    $secondInitial = $lastName !== '' ? mb_substr($lastName, 0, 1) : mb_substr($firstName, 1, 1);
-    $initials = mb_strtoupper($firstInitial . $secondInitial);
+    $firstInitial = mb_strtoupper(mb_substr($firstName, 0, 1)) ?: 'C';
+    $lastInitial  = $lastName ? mb_strtoupper(mb_substr($lastName, 0, 1)) : '';
+    $initials = $firstInitial . $lastInitial;
 
     // Garante que as categorias existam nesta tela para a navbar funcionar
     $categories = $categories ?? \App\Models\Category::all();
@@ -270,8 +269,8 @@
                     type="text" 
                     id="last_name" 
                     name="last_name" 
-                    class="form-control profile-input" 
-                    value="{{ old('last_name', $lastName) }}" 
+                    class="form-control profile-editable" 
+                    value="{{ old('last_name', $currentUser?->last_name) }}" 
                     placeholder="Sobrenome"
                     readonly
                   >
@@ -302,8 +301,8 @@
                     type="tel" 
                     id="phone" 
                     name="phone" 
-                    class="form-control profile-input" 
-                    value="{{ old('phone', $phone) }}" 
+                    class="form-control profile-editable" 
+                    value="{{ old('phone', $currentUser?->phone) }}"
                     placeholder="(xx) x xxxx-xxxx"
                     readonly
                   >
@@ -379,8 +378,70 @@
           <section id="tab-enderecos" class="tab-section" aria-labelledby="heading-enderecos">
             <header class="content-header">
               <h2 class="content-title" id="heading-enderecos">ENDEREÇOS</h2>
+              <button type="button" id="btnEnableAddressEdit" class="btn-edit-red">
+                {{ $currentUser?->cep ? 'EDITAR' : 'ADICIONAR' }}
+              </button>
             </header>
-            <p class="empty-tab-text">Nenhum endereço cadastrado até o momento.</p>
+
+            @if (session('status') === 'address-updated')
+              <div class="alert-success" role="status">
+                Endereço atualizado com sucesso! Ele será preenchido automaticamente nas suas compras.
+              </div>
+            @endif
+
+            @if(!$currentUser?->cep)
+              <p id="emptyAddressText" class="empty-tab-text" style="margin-bottom: 16px;">
+                Nenhum endereço cadastrado até o momento. Clique em <strong>ADICIONAR</strong> acima para cadastrar.
+              </p>
+            @endif
+
+            <form id="addressUpdateForm" method="POST" action="{{ route('profile.address.update') }}" style="{{ !$currentUser?->cep ? 'display: none;' : '' }}">
+              @csrf
+              @method('PATCH')
+
+              <div class="profile-form-grid">
+                <div class="form-group">
+                  <label for="addr_cep" class="form-label">CEP</label>
+                  <input type="text" id="addr_cep" name="cep" class="form-control address-editable" value="{{ old('cep', $currentUser?->cep) }}" placeholder="00000-000" readonly required>
+                </div>
+
+                <div class="form-group">
+                  <label for="addr_street" class="form-label">Rua / Avenida</label>
+                  <input type="text" id="addr_street" name="street" class="form-control address-editable" value="{{ old('street', $currentUser?->street) }}" placeholder="Ex: Av. Interlagos" readonly required>
+                </div>
+
+                <div class="form-group">
+                  <label for="addr_number" class="form-label">Número</label>
+                  <input type="text" id="addr_number" name="number" class="form-control address-editable" value="{{ old('number', $currentUser?->number) }}" placeholder="Ex: 1250" readonly required>
+                </div>
+
+                <div class="form-group">
+                  <label for="addr_complement" class="form-label">Complemento (Opcional)</label>
+                  <input type="text" id="addr_complement" name="complement" class="form-control address-editable" value="{{ old('complement', $currentUser?->complement) }}" placeholder="Apto, Bloco, Casa..." readonly>
+                </div>
+
+                <div class="form-group">
+                  <label for="addr_neighborhood" class="form-label">Bairro</label>
+                  <input type="text" id="addr_neighborhood" name="neighborhood" class="form-control address-editable" value="{{ old('neighborhood', $currentUser?->neighborhood) }}" placeholder="Seu bairro" readonly required>
+                </div>
+
+                <div class="form-group" style="display: grid; grid-template-columns: 2fr 1fr; gap: 12px;">
+                  <div>
+                    <label for="addr_city" class="form-label">Cidade</label>
+                    <input type="text" id="addr_city" name="city" class="form-control address-editable" value="{{ old('city', $currentUser?->city) }}" placeholder="São Paulo" readonly required>
+                  </div>
+                  <div>
+                    <label for="addr_state" class="form-label">UF</label>
+                    <input type="text" id="addr_state" name="state" class="form-control address-editable" maxlength="2" value="{{ old('state', $currentUser?->state) }}" placeholder="SP" readonly required>
+                  </div>
+                </div>
+              </div>
+
+              <div id="addressEditActions" class="edit-actions-bar" hidden>
+                <button type="button" id="btnCancelAddressEdit" class="btn-cancel-gray">CANCELAR</button>
+                <button type="submit" class="btn-save-red">SALVAR ENDEREÇO</button>
+              </div>
+            </form>
           </section>
 
           <!-- ABA 4: FAVORITOS -->
@@ -388,7 +449,58 @@
             <header class="content-header">
               <h2 class="content-title" id="heading-favoritos">FAVORITOS</h2>
             </header>
-            <p class="empty-tab-text">Sua lista de produtos favoritos está vazia.</p>
+
+            @php
+              $meusFavoritos = \App\Models\Favorite::where('user_id', auth()->id())->with('Product')->latest()->get();
+            @endphp
+
+            @if($meusFavoritos->count() > 0)
+              <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px;">
+                @foreach($meusFavoritos as $fav)
+                  @if($fav->Product)
+                    <article style="display: flex; align-items: center; gap: 14px; padding: 14px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px;">
+                      
+                      <!-- Foto do Produto -->
+                      <a href="{{ route('client.product.show', $fav->Product->id) }}" style="width: 76px; height: 76px; border-radius: 10px; overflow: hidden; background: #111827; flex-shrink: 0; display: block;">
+                        <img src="{{ $fav->Product->image ? asset('storage/' . $fav->Product->image) : '' }}" alt="{{ $fav->Product->name }}" style="width: 100%; height: 100%; object-fit: cover;">
+                      </a>
+
+                      <!-- Dados e Botões -->
+                      <div style="flex: 1; min-width: 0;">
+                        <h3 style="font-size: 14px; font-weight: 800; color: #0f172a; margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                          <a href="{{ route('client.product.show', $fav->Product->id) }}" style="color: inherit; text-decoration: none;">
+                            {{ $fav->Product->name }}
+                          </a>
+                        </h3>
+
+                        <strong style="display: block; font-size: 14px; font-weight: 900; color: #e60012; margin-bottom: 10px;">
+                          R$ {{ number_format((float) $fav->Product->price, 2, ',', '.') }}
+                        </strong>
+
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                          <!-- Botão Adicionar ao Carrinho -->
+                          <form action="{{ route('cart.store', $fav->Product->id) }}" method="POST" style="flex: 1;">
+                            @csrf
+                            <input type="hidden" name="quantity" value="1">
+                            <button type="submit" style="width: 100%; background: #e60012; color: #fff; border: none; border-radius: 7px; padding: 7px 10px; font-size: 10.5px; font-weight: 800; cursor: pointer;">
+                              + CARRINHO
+                            </button>
+                          </form>
+
+                          <!-- Botão Remover dos Favoritos -->
+                          <a href="{{ route('favorites.destroy', $fav->id) }}" title="Remover dos favoritos" style="width: 28px; height: 28px; border-radius: 7px; border: 1px solid #fecaca; background: #fef2f2; color: #dc2626; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800; text-decoration: none;">
+                            ✕
+                          </a>
+                        </div>
+                      </div>
+
+                    </article>
+                  @endif
+                @endforeach
+              </div>
+            @else
+              <p class="empty-tab-text">Sua lista de produtos favoritos está vazia.</p>
+            @endif
           </section>
 
           <!-- ABA 5: SEGURANÇA (Troca de senha integrada ao Breeze) -->
@@ -496,6 +608,45 @@
       btnCancelEdit.style.display = 'none';
       updateSidebarPreview();
     });
+
+    const btnEnableAddressEdit = document.getElementById('btnEnableAddressEdit');
+    const btnCancelAddressEdit = document.getElementById('btnCancelAddressEdit');
+    const addressEditActions = document.getElementById('addressEditActions');
+    const addressEditableInputs = document.querySelectorAll('.address-editable');
+    const addressUpdateForm = document.getElementById('addressUpdateForm');
+    const emptyAddressText = document.getElementById('emptyAddressText');
+
+    btnEnableAddressEdit?.addEventListener('click', () => {
+      if (emptyAddressText) emptyAddressText.style.display = 'none';
+      if (addressUpdateForm) addressUpdateForm.style.display = 'block';
+
+      addressEditableInputs.forEach(input => input.removeAttribute('readonly'));
+      addressEditActions.hidden = false;
+      btnEnableAddressEdit.hidden = true;
+      document.getElementById('addr_cep')?.focus();
+    });
+
+    btnCancelAddressEdit?.addEventListener('click', () => {
+      addressEditableInputs.forEach(input => input.setAttribute('readonly', 'readonly'));
+      addressEditActions.hidden = true;
+      btnEnableAddressEdit.hidden = false;
+      addressUpdateForm.reset();
+
+      if (emptyAddressText) {
+        emptyAddressText.style.display = 'block';
+        addressUpdateForm.style.display = 'none';
+      }
+    });
+
+    // 4. Abre automaticamente a aba Meus Pedidos ou Endereços quando vier na URL (?tab=...)
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('tab') === 'pedidos') {
+      document.querySelector('[data-target="tab-pedidos"]')?.click();
+    } else if (urlParams.get('tab') === 'enderecos') {
+      document.querySelector('[data-target="tab-enderecos"]')?.click();
+    } else if (urlParams.get('tab') === 'favoritos') {
+      document.querySelector('[data-target="tab-favoritos"]')?.click();
+    }
 
     // Atualiza o nome e as iniciais do card lateral em tempo real enquanto edita
     function updateSidebarPreview() {
