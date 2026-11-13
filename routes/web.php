@@ -33,6 +33,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/cart/update/{cart}', [CartController::class, 'update'])->name('cart.update');
     Route::get('/cart/delete/{cart}', [CartController::class, 'destroy'])->name('cart.destroy');
     Route::post('/cart/checkout', [OrderController::class, 'checkout'])->name('cart.checkout');
+
+    Route::post('/pedidos/cancelar/{order}', [OrderController::class, 'cancel'])->name('client.orders.cancel');
 });
 
 // ================= ROTAS EXCLUSIVAS DO ADMIN (GERENCIAMENTO) =================
@@ -61,6 +63,7 @@ Route::middleware(['auth', AdminMiddleware::class])->group(function () {
     Route::post('/clientes/toggle-admin/{user}', [ClientAdminController::class, 'toggleAdmin'])->name('admin.clients.toggle');
     Route::get('/clientes/delete/{user}', [ClientAdminController::class, 'destroy'])->name('admin.clients.destroy');
 
+    //Rotas de Pedidos
     Route::get('/pedidos', [OrderController::class, 'index'])->name('admin.orders.index');
     Route::post('/pedidos/status/{order}', [OrderController::class, 'updateStatus'])->name('admin.orders.status');
 });

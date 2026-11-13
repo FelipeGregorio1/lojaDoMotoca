@@ -125,12 +125,12 @@
                 <hr class="divider">
                 
                 <label class="form-group">
-                    <span>Nome do produto *</span>
+                    <span>Nome do produto</span>
                     <input type="text" name="name" value="{{ $product->name }}" required>
                 </label>
 
                 <label class="form-group">
-                    <span>Categoria *</span>
+                    <span>Categoria</span>
                     <select name="category_id" required>
                         <option value="">Selecione</option>
                         @foreach(\App\Models\Category::all() as $c)
@@ -149,18 +149,18 @@
                 <hr class="divider">
                 
                 <label class="form-group">
-                    <span>Preço (R$) *</span>
+                    <span>Preço (R$)</span>
                     <input type="text" name="price" value="{{ $product->price }}" placeholder="0,00" required>
                 </label>
 
                 <label class="form-group">
-                    <span>Estoque *</span>
+                    <span>Estoque</span>
                     <input type="number" name="stock" value="{{ $product->stock }}" placeholder="0" required>
                 </label>
 
                 <label for="image">
-                    <span>Imagem do produto *</span>
-                    <input type="file" name="image" id="image" accept="image/*" required>
+                    <span>Imagem do produto</span>
+                    <input type="file" name="image" id="image" accept="image/*">
                 </label>
             </section>
 

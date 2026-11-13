@@ -322,16 +322,22 @@ body {
     opacity: 0.85;
 }
 
-/* Verde para PAGO e ENTREGUE */
+/* Verde para ENTREGUE */
 .status-badge--green {
     background-color: #ecfdf5;
     color: #059669;
 }
 
-/* Âmbar/Laranja para SEPARAÇÃO e ENVIADO */
+/* Âmbar/Laranja para EM PREPEPARAÇÃO, ENVIADO E SAIU PARA ENTREGA */
 .status-badge--amber {
     background-color: #fffbeb;
     color: #b45309;
+}
+
+/* Vermelho para CANCELADO */
+.status-badge--red {
+    background-color: #fef2f2;
+    color: #dc2626;
 }
 
 .orders-empty {

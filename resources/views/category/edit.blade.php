@@ -128,13 +128,13 @@
             <div class="card-body">
                 <div class="form-group">
                     <label for="name">
-                        <span>Nome da categoria *</span>
+                        <span>Nome da categoria</span>
                         <input type="text" id="name" name="name" required>
                     </label>
 
                     <label for="image">
-                        <span>Imagem da categoria *</span>
-                    <input type="file" name="image" id="image" accept="image/*" required>
+                        <span>Imagem da categoria</span>
+                    <input type="file" name="image" id="image" accept="image/*">
                 </label>
                 </div>
             </div>

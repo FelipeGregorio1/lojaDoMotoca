@@ -67,6 +67,7 @@
 
         @php
           $cartCount = auth()->check() ? \App\Models\Cart::where('user_id', auth()->id())->sum('quantity') : 0;
+          $userOrders = \App\Models\Order::where('user_id', $currentUser?->id)->latest()->get();
         @endphp
 
         <a href="{{ route('cart.index') }}" class="action-item">
@@ -316,7 +317,62 @@
             <header class="content-header">
               <h2 class="content-title" id="heading-pedidos">MEUS PEDIDOS</h2>
             </header>
-            <p class="empty-tab-text">Você ainda não realizou nenhum pedido.</p>
+
+            @if($userOrders->count() > 0)
+              <ul class="user-orders-list">
+                @foreach($userOrders as $order)
+                  @php
+                    $orderCode = 45827 + $order->id;
+                    $statusUpper = mb_strtoupper($order->status);
+
+                    // Regra de cores: Verde só no ENTREGUE, Vermelho no CANCELADO, Laranja no resto
+                    if ($statusUpper === 'ENTREGUE') {
+                        $badgeClass = 'order-badge--green';
+                    } elseif ($statusUpper === 'CANCELADO') {
+                        $badgeClass = 'order-badge--red';
+                    } else {
+                        $badgeClass = 'order-badge--amber';
+                    }
+                  @endphp
+
+                  <li class="user-order-card">
+                    <div class="user-order-left">
+                      <div class="user-order-icon" aria-hidden="true">📦</div>
+                      <div class="user-order-info">
+                        <strong class="user-order-number">Pedido #{{ $orderCode }}</strong>
+                        <span class="user-order-date">
+                          Realizado em {{ $order->created_at->format('d/m/Y \à\s H:i') }}
+                        </span>
+                      </div>
+                    </div>
+
+                    <div class="user-order-right">
+                      <strong class="user-order-total">
+                        R$ {{ number_format((float) $order->total, 2, ',', '.') }}
+                      </strong>
+
+                      <div class="user-order-actions">
+                        <span class="user-order-badge {{ $badgeClass }}">
+                          {{ $statusUpper }}
+                        </span>
+
+                        <!-- Botão Cancelar Compra (aparece se não estiver entregue nem cancelado) -->
+                        @if(!in_array($statusUpper, ['ENTREGUE', 'CANCELADO']))
+                          <form action="{{ route('client.orders.cancel', $order->id) }}" method="POST">
+                            @csrf
+                            <button type="submit" class="btn-cancel-order">
+                              Cancelar compra
+                            </button>
+                          </form>
+                        @endif
+                      </div>
+                    </div>
+                  </li>
+                @endforeach
+              </ul>
+            @else
+              <p class="empty-tab-text">Você ainda não realizou nenhum pedido.</p>
+            @endif
           </section>
 
           <!-- ABA 3: ENDEREÇOS -->

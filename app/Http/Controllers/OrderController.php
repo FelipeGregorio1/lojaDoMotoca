@@ -45,19 +45,51 @@ class OrderController extends Controller
             return redirect('/cart');
         }
 
-        $subtotal = $carts->sum(fn($item) => $item->Product->price * $item->quantity);
+        $subtotal = 0;
+
+        foreach ($carts as $cart) {
+            $product = $cart->Product;
+
+            if ($product) {
+                $subtotal += $product->price * $cart->quantity;
+
+                if (isset($product->stock)) {
+                    $product->update([
+                        'stock' => max(0, $product->stock - $cart->quantity)
+                    ]);
+                } elseif (isset($product->quantity)) {
+                    $product->update([
+                        'quantity' => max(0, $product->quantity - $cart->quantity)
+                    ]);
+                }
+            }
+        }
+
         $finalTotal = $subtotal >= 299 ? $subtotal : $subtotal + 29.90;
 
-        // Cria o pedido no banco
+        // Cria o pedido já com o status inicial EM PREPARAÇÃO
         Order::create([
             'user_id' => auth()->id(),
             'total'   => $finalTotal,
-            'status'  => 'PAGO',
+            'status'  => 'EM PREPARAÇÃO',
         ]);
 
-        // Limpa o carrinho do usuário após finalizar a compra
         Cart::where('user_id', auth()->id())->delete();
 
-        return redirect()->route('client.home');
+        return redirect()->route('profile.edit', ['tab' => 'pedidos'])
+                         ->with('status', 'order-created');
+    }
+
+    // Quando o cliente clica em "Cancelar compra" lá em Meus Pedidos
+    public function cancel(Order $order)
+    {
+        // Garante que o pedido pertence ao usuário logado e ainda não foi entregue
+        if ($order->user_id === auth()->id() && !in_array(mb_strtoupper($order->status), ['ENTREGUE', 'CANCELADO'])) {
+            $order->update([
+                'status' => 'CANCELADO'
+            ]);
+        }
+
+        return redirect()->route('profile.edit', ['tab' => 'pedidos']);
     }
 }

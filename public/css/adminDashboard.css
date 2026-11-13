@@ -442,6 +442,11 @@ body {
     color: #b45309;
 }
 
+.badge-red {
+    background-color: #fef2f2;
+    color: #dc2626;
+}
+
 /* Ações Rápidas */
 .quick-actions-list {
     display: flex;

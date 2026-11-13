@@ -134,8 +134,7 @@
             +4.000 produtos. Peças de reposição, capacetes e equipamentos EPI com compatibilidade verificada para a sua moto.
           </p>
           <div class="hero-actions">
-            <a href="#ofertas" class="btn-hero-primary">VER OFERTAS</a>
-            <a href="#categorias" class="btn-hero-outline">BUSCAR PRODUTOS</a>
+            <a href="#ofertas" class="btn-hero-primary">VER PRODUTOS</a>
           </div>
         </div>
       </div>

@@ -11,7 +11,7 @@
 </head>
 <body>
 
-  <!-- NAVBAR PRINCIPAL -->
+  <!-- ================= 1. CABEÇALHO / NAVBAR ================= -->
   <header class="navbar">
     <div class="container navbar-content">
       
@@ -97,17 +97,19 @@
 
     </div>
 
-    <!-- BARRA DE CATEGORIAS -->
+    <!-- ================= 2. SUB-MENU DE CATEGORIAS ================= -->
     <nav class="category-bar" aria-label="Categorias de produtos">
       <div class="container">
-        <ul class="category-list">
-          <li><a href="#">CAPACETES</a></li>
-          <li><a href="#">EQUIPAMENTOS</a></li>
-          <li><a href="#">PEÇAS</a></li>
-          <li><a href="#">PNEUS</a></li>
-          <li><a href="#">ÓLEOS</a></li>
-          <li><a href="#">FERRAMENTAS</a></li>
-          <li><a href="#">OFERTAS</a></li>
+        <ul class="category-nav-list">
+          @forelse($categories as $c)
+            <li>
+              <a href="{{ route('client.category', $c->id) }}" class="category-nav-link">
+                {{ $c->name }}
+              </a>
+            </li>
+          @empty
+            <li><span class="category-nav-link">Nenhuma categoria cadastrada</span></li>
+          @endforelse
         </ul>
       </div>
     </nav>
@@ -119,12 +121,6 @@
     <!-- HERO CABEÇALHO -->
     <section class="terms-hero">
       <div class="container">
-        <nav aria-label="Breadcrumb" class="breadcrumb">
-          <ol>
-            <li><a href="{{ route('client.home') }}">Início</a></li>
-            <li aria-current="page">Termos de Uso</li>
-          </ol>
-        </nav>
 
         <h1 class="hero-title">
           TERMOS DE <span>USO</span>

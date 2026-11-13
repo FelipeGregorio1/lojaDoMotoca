@@ -139,10 +139,8 @@
             <ul class="orders-list">
                 @forelse($orders as $order)
                     @php
-                        // Gera um código amigável estilo #45828 somando 45827 ao ID do banco
                         $orderCode = 45827 + $order->id;
 
-                        // Formata a data ("Hoje, 10:42", "Ontem, 18:56" ou "12/11/2026, 10:42")
                         if ($order->created_at->isToday()) {
                             $dateText = 'Hoje, ' . $order->created_at->format('H:i');
                         } elseif ($order->created_at->isYesterday()) {
@@ -151,14 +149,19 @@
                             $dateText = $order->created_at->format('d/m/Y, H:i');
                         }
 
-                        // Define a classe de cor da pílula conforme o status
+                        // Verde apenas para ENTREGUE, Vermelho para CANCELADO, Laranja para os demais
                         $statusUpper = mb_strtoupper($order->status);
-                        $badgeClass = in_array($statusUpper, ['PAGO', 'ENTREGUE']) ? 'status-badge--green' : 'status-badge--amber';
+                        if ($statusUpper === 'ENTREGUE') {
+                            $badgeClass = 'status-badge--green';
+                        } elseif ($statusUpper === 'CANCELADO') {
+                            $badgeClass = 'status-badge--red';
+                        } else {
+                            $badgeClass = 'status-badge--amber';
+                        }
                     @endphp
 
                     <li class="order-row">
                         
-                        <!-- Esquerda: Ícone # + Número do Pedido/Cliente e Data -->
                         <div class="order-info">
                             <div class="order-hash-avatar" aria-hidden="true">
                                 #
@@ -173,20 +176,19 @@
                             </div>
                         </div>
 
-                        <!-- Direita: Valor Total + Status -->
                         <div class="order-summary">
                             <strong class="order-total">
                                 R$ {{ number_format((float) $order->total, 2, ',', '.') }}
                             </strong>
 
-                            <!-- Select estilizado como Badge para o Admin trocar o status com 1 clique -->
                             <form action="{{ route('admin.orders.status', $order->id) }}" method="POST" class="status-form">
                                 @csrf
                                 <select name="status" class="status-badge {{ $badgeClass }}" onchange="this.form.submit()" aria-label="Status do pedido">
-                                    <option value="PAGO" {{ $statusUpper === 'PAGO' ? 'selected' : '' }}>PAGO</option>
-                                    <option value="SEPARAÇÃO" {{ $statusUpper === 'SEPARAÇÃO' ? 'selected' : '' }}>SEPARAÇÃO</option>
+                                    <option value="EM PREPARAÇÃO" {{ $statusUpper === 'EM PREPARAÇÃO' ? 'selected' : '' }}>EM PREPARAÇÃO</option>
                                     <option value="ENVIADO" {{ $statusUpper === 'ENVIADO' ? 'selected' : '' }}>ENVIADO</option>
+                                    <option value="SAIU PARA ENTREGA" {{ $statusUpper === 'SAIU PARA ENTREGA' ? 'selected' : '' }}>SAIU PARA ENTREGA</option>
                                     <option value="ENTREGUE" {{ $statusUpper === 'ENTREGUE' ? 'selected' : '' }}>ENTREGUE</option>
+                                    <option value="CANCELADO" {{ $statusUpper === 'CANCELADO' ? 'selected' : '' }}>CANCELADO</option>
                                 </select>
                             </form>
                         </div>

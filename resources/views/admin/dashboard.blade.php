@@ -238,7 +238,7 @@
                                 $dateText = $order->created_at->format('d/m/Y, H:i');
                             }
                             $statusUpper = mb_strtoupper($order->status);
-                            $badgeClass = in_array($statusUpper, ['PAGO', 'ENTREGUE']) ? 'badge-green' : 'badge-amber';
+                            $badgeClass = $statusUpper === 'ENTREGUE' ? 'badge-green' : ($statusUpper === 'CANCELADO' ? 'badge-red' : 'badge-amber');
                         @endphp
 
                         <li class="recent-order-item">
