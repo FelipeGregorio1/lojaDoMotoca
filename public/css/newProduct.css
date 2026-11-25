@@ -8,8 +8,11 @@
 body {
     background-color: #f8f9fb;
     color: #333;
+<<<<<<< HEAD
     margin: 0;
     padding: 0;
+=======
+>>>>>>> ee0b4fc903e302b86beb4b963e673022e6723f01
 }
 
 .admin-container {
@@ -383,6 +386,7 @@ a.btn {
     .product-form .card:first-of-type select {
         max-width: 100%;
     }
+<<<<<<< HEAD
 }
 
 /* ================= NOVOS CAMPOS: DESCRIÇÃO, TAMANHOS, FICHA E UPLOAD ================= */
@@ -593,4 +597,6 @@ a.btn {
     .specs-grid {
         grid-template-columns: 1fr;
     }
+=======
+>>>>>>> ee0b4fc903e302b86beb4b963e673022e6723f01
 }

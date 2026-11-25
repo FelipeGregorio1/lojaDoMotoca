@@ -172,6 +172,7 @@
 
         </section>
 
+<<<<<<< HEAD
         <!-- 3. GRÁFICO DE VENDAS EM CSS PURO (COM FILTRO DE PERÍODO) -->
         <section class="panel-card chart-section" aria-labelledby="chart-heading">
             <header class="panel-header chart-header">
@@ -197,6 +198,15 @@
                         aria-label="Selecionar data de referência"
                     >
                 </form>
+=======
+        <!-- 3. GRÁFICO DE VENDAS EM CSS PURO (ÚLTIMOS 7 DIAS) -->
+        <section class="panel-card chart-section" aria-labelledby="chart-heading">
+            <header class="panel-header">
+                <div>
+                    <h2 id="chart-heading" class="panel-title">Desempenho de vendas (Últimos 7 dias)</h2>
+                    <p class="panel-subtitle">Volume diário de pedidos faturados na loja</p>
+                </div>
+>>>>>>> ee0b4fc903e302b86beb4b963e673022e6723f01
             </header>
 
             <div class="css-bar-chart">
@@ -204,12 +214,20 @@
                     @php
                         // Calcula a altura percentual da barra (mínimo de 8% para visualização estética)
                         $heightPercent = $maxSale > 0 ? max(round(($day['total'] / $maxSale) * 100), 8) : 8;
+<<<<<<< HEAD
                         $isHighlight = $loop->last;
+=======
+                        $isToday = $loop->last;
+>>>>>>> ee0b4fc903e302b86beb4b963e673022e6723f01
                     @endphp
                     <div class="chart-column">
                         <span class="chart-value">R$ {{ number_format($day['total'], 0, ',', '.') }}</span>
                         <div class="chart-bar-track">
+<<<<<<< HEAD
                             <div class="chart-bar-fill {{ $isHighlight ? 'is-today' : '' }}" style="height: {{ $heightPercent }}%;"></div>
+=======
+                            <div class="chart-bar-fill {{ $isToday ? 'is-today' : '' }}" style="height: {{ $heightPercent }}%;"></div>
+>>>>>>> ee0b4fc903e302b86beb4b963e673022e6723f01
                         </div>
                         <span class="chart-label">{{ $day['label'] }}</span>
                     </div>

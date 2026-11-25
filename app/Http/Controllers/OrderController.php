@@ -73,6 +73,7 @@ class OrderController extends Controller
 
                 $subtotal += $cleanPrice * (int) $cart->quantity;
 
+<<<<<<< HEAD
                 if ($product->has_sizes && is_array($product->sizes) && $cart->size) {
                     $updatedSizes = [];
                     $newTotalStock = 0;
@@ -94,6 +95,9 @@ class OrderController extends Controller
                         'stock' => $newTotalStock,
                     ]);
                 } elseif (isset($product->stock)) {
+=======
+                if (isset($product->stock)) {
+>>>>>>> ee0b4fc903e302b86beb4b963e673022e6723f01
                     $product->update([
                         'stock' => max(0, $product->stock - $cart->quantity)
                     ]);

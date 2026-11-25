@@ -16,6 +16,7 @@ class CartController extends Controller
         ]);
     }
 
+<<<<<<< HEAD
     public function store(Request $request, Product $product)
     {
         $quantity = max(1, (int) $request->input('quantity', 1));
@@ -31,14 +32,33 @@ class CartController extends Controller
                     ->first();
 
         if ($cart) {
+=======
+    public function store(Request $request, Product $product){
+        $quantity = (int) $request->input('quantity', 1);
+
+        // Verifica se este produto já está no carrinho do usuário logado
+        $cart = Cart::where('user_id', auth()->id())
+                    ->where('product_id', $product->id)
+                    ->first();
+
+        if ($cart) {
+            // Se já estiver no carrinho, apenas soma a quantidade
+>>>>>>> ee0b4fc903e302b86beb4b963e673022e6723f01
             $cart->update([
                 'quantity' => $cart->quantity + $quantity
             ]);
         } else {
+<<<<<<< HEAD
             Cart::create([
                 'user_id'    => auth()->id(),
                 'product_id' => $product->id,
                 'size'       => $size,
+=======
+            // Se não estiver, cria um novo registro na tabela carts
+            Cart::create([
+                'user_id'    => auth()->id(),
+                'product_id' => $product->id,
+>>>>>>> ee0b4fc903e302b86beb4b963e673022e6723f01
                 'quantity'   => $quantity
             ]);
         }
@@ -64,6 +84,7 @@ class CartController extends Controller
         $cart->delete();
         return redirect('/cart');
     }
+<<<<<<< HEAD
 
     private function getAvailableStock(?Product $product, ?string $size = null): int
     {
@@ -81,4 +102,6 @@ class CartController extends Controller
 
         return (int) ($product->stock ?? 0);
     }
+=======
+>>>>>>> ee0b4fc903e302b86beb4b963e673022e6723f01
 }

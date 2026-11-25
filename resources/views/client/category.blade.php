@@ -80,7 +80,11 @@
 
         @auth
           @if(auth()->user()->is_admin)
+<<<<<<< HEAD
             <a href="{{ route('admin.dashboard') }}" class="action-item action-admin">
+=======
+            <a href="{{ route('product.index') }}" class="action-item action-admin">
+>>>>>>> ee0b4fc903e302b86beb4b963e673022e6723f01
               <div class="action-icon-box">
                 <svg class="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                   <rect x="3" y="3" width="7" height="7"></rect>

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Categoria</title>
+<<<<<<< HEAD
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,6 +18,16 @@
     <header class="admin-header">
         <div class="admin-header__container">
             
+=======
+    <link rel="stylesheet" href="../../css/newCategory.css">
+</head>
+<body class="admin-container">
+
+    <header class="admin-header">
+        <div class="admin-header__container">
+            
+            <!-- Esquerda: Logo + Badge ADMIN -->
+>>>>>>> ee0b4fc903e302b86beb4b963e673022e6723f01
             <div class="admin-brand">
                 <a href="{{ url('/') }}" class="admin-brand__logo-link" title="Loja do Motoca">
                     <img src="{{ asset('img/logoLDM.png') }}" alt="Logo Loja do Motoca" class="admin-brand__logo">
@@ -24,9 +35,17 @@
                 <span class="admin-brand__badge">ADMIN</span>
             </div>
 
+<<<<<<< HEAD
             <nav class="admin-nav" aria-label="Menu Administrativo">
                 <ul class="admin-nav__list">
                     
+=======
+            <!-- Centro: Navegação Principal -->
+            <nav class="admin-nav" aria-label="Menu Administrativo">
+                <ul class="admin-nav__list">
+                    
+                    <!-- Visão Geral -->
+>>>>>>> ee0b4fc903e302b86beb4b963e673022e6723f01
                     <li class="admin-nav__item">
                         <a href="{{ route('admin.dashboard') }}" class="admin-nav__link {{ request()->routeIs('admin.dashboard*') ? 'is-active' : '' }}">
                             <svg class="admin-nav__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -39,6 +58,10 @@
                         </a>
                     </li>
 
+<<<<<<< HEAD
+=======
+                    <!-- Categorias (Ativo em index, create, edit, etc.) -->
+>>>>>>> ee0b4fc903e302b86beb4b963e673022e6723f01
                     <li class="admin-nav__item">
                         <a href="{{ route('category.index') }}" class="admin-nav__link {{ request()->routeIs('*category.*') ? 'is-active' : '' }}">
                             <svg class="admin-nav__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -53,6 +76,10 @@
                         </a>
                     </li>
 
+<<<<<<< HEAD
+=======
+                    <!-- Produtos (Ativo em index, create, edit, etc.) -->
+>>>>>>> ee0b4fc903e302b86beb4b963e673022e6723f01
                     <li class="admin-nav__item">
                         <a href="{{ route('product.index') }}" class="admin-nav__link {{ request()->routeIs('*product.*') ? 'is-active' : '' }}">
                             <svg class="admin-nav__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -64,8 +91,14 @@
                         </a>
                     </li>
 
+<<<<<<< HEAD
                     <li class="admin-nav__item">
                         <a href="{{ route('admin.orders.index') }}" class="admin-nav__link {{ request()->routeIs('*orders*') ? 'is-active' : '' }}">
+=======
+                    <!-- Pedidos -->
+                    <li class="admin-nav__item">
+                        <a href="{{ route('admin.orders.index') }}" class="admin-nav__link {{ request()->routeIs('*pedidos*') ? 'is-active' : '' }}">
+>>>>>>> ee0b4fc903e302b86beb4b963e673022e6723f01
                             <svg class="admin-nav__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                                 <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
                                 <line x1="3" y1="6" x2="21" y2="6"></line>
@@ -75,8 +108,14 @@
                         </a>
                     </li>
 
+<<<<<<< HEAD
                     <li class="admin-nav__item">
                         <a href="{{ route('admin.clients.index') }}" class="admin-nav__link {{ request()->routeIs('*clients*') ? 'is-active' : '' }}">
+=======
+                    <!-- Clientes -->
+                    <li class="admin-nav__item">
+                        <a href="{{ route('admin.clients.index') }}" class="admin-nav__link {{ request()->routeIs('*clientes*') ? 'is-active' : '' }}">
+>>>>>>> ee0b4fc903e302b86beb4b963e673022e6723f01
                             <svg class="admin-nav__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                                 <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
                                 <circle cx="9" cy="7" r="4"></circle>
@@ -90,6 +129,10 @@
                 </ul>
             </nav>
 
+<<<<<<< HEAD
+=======
+            <!-- Direita: Ações (Ver Loja e Sair) -->
+>>>>>>> ee0b4fc903e302b86beb4b963e673022e6723f01
             <div class="admin-actions">
                 <a href="{{ url('/') }}" class="admin-actions__btn admin-actions__btn--outline">
                     VER LOJA
@@ -106,6 +149,7 @@
         </div>
     </header>
 
+<<<<<<< HEAD
     <main class="admin-container">
 
         <header class="page-header">
@@ -153,5 +197,47 @@
             </div>
         </form>
     </main>
+=======
+    <header class="page-header">
+        <span class="badge">PAINEL ADMINISTRATIVO</span>
+        <h1>Editar categoria</h1>
+        <p>Atualize a organização do catálogo de peças e acessórios.</p>
+    </header>
+
+    <form action="/category/update/{{ $category->id }}" method="POST" enctype="multipart/form-data" class="category-form">
+        @csrf
+        
+        <div class="card">
+            <div class="card-header">
+                <h2>Informações da categoria</h2>
+                <p>Dados usados para identificar e apresentar a categoria.</p>
+            </div>
+            
+            <hr class="divider">
+            
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="name">
+                        <span>Nome da categoria</span>
+                        <input type="text" id="name" name="name" required>
+                    </label>
+
+                    <label for="image">
+                        <span>Imagem da categoria</span>
+                    <input type="file" name="image" id="image" accept="image/*">
+                </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-actions">
+            <div class="actions-container">
+                <!-- Transformado em link para voltar à listagem, mantendo a classe do botão -->
+                <a href="/category" class="btn btn-cancel" style="text-decoration: none; display: inline-flex; align-items: center;">CANCELAR</a>
+                <button type="submit" class="btn btn-submit">SALVAR ALTERAÇÕES</button>
+            </div>
+        </div>
+    </form>
+>>>>>>> ee0b4fc903e302b86beb4b963e673022e6723f01
 </body>
 </html>

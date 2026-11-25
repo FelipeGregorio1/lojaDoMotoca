@@ -3,15 +3,22 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+<<<<<<< HEAD
 use App\Models\VerificationCode;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+=======
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+>>>>>>> ee0b4fc903e302b86beb4b963e673022e6723f01
 use Illuminate\Validation\Rules\Password;
 
 class PasswordController extends Controller
 {
+<<<<<<< HEAD
     public function sendCode(Request $request): RedirectResponse
     {
         $user = $request->user();
@@ -70,13 +77,31 @@ class PasswordController extends Controller
 
         $record->delete();
 
+=======
+    /**
+     * Update the user's password.
+     */
+    public function update(Request $request): RedirectResponse
+    {
+        $validated = $request->validateWithBag('updatePassword', [
+            'current_password' => ['required', 'current_password'],
+            'password' => ['required', Password::defaults(), 'confirmed'],
+        ]);
+
+>>>>>>> ee0b4fc903e302b86beb4b963e673022e6723f01
         $request->user()->update([
             'password' => Hash::make($validated['password']),
         ]);
 
+<<<<<<< HEAD
         session()->forget('password_reset_verified');
 
         return redirect()->route('profile.edit', ['tab' => 'seguranca'])
             ->with('status', 'password-updated');
     }
 }
+=======
+        return back()->with('status', 'password-updated');
+    }
+}
+>>>>>>> ee0b4fc903e302b86beb4b963e673022e6723f01

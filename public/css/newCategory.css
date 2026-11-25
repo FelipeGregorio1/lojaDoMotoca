@@ -9,8 +9,11 @@
 body {
     background-color: #f8f9fb;
     color: #333;
+<<<<<<< HEAD
     margin: 0;
     padding: 0;
+=======
+>>>>>>> ee0b4fc903e302b86beb4b963e673022e6723f01
 }
 
 .admin-container {
@@ -88,13 +91,20 @@ body {
     flex-direction: column;
 }
 
+<<<<<<< HEAD
 .form-group > label:not(.file-upload-box),
 .form-group > span {
+=======
+.form-group label {
+>>>>>>> ee0b4fc903e302b86beb4b963e673022e6723f01
     font-size: 0.85rem;
     font-weight: 600;
     color: #374151;
     margin-bottom: 8px;
+<<<<<<< HEAD
     display: block;
+=======
+>>>>>>> ee0b4fc903e302b86beb4b963e673022e6723f01
 }
 
 .form-group input[type="text"] {
@@ -350,6 +360,7 @@ body {
     .form-grid {
         grid-template-columns: 1fr;
     }
+<<<<<<< HEAD
 }
 
 .file-upload-box {
@@ -389,4 +400,6 @@ body {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+=======
+>>>>>>> ee0b4fc903e302b86beb4b963e673022e6723f01
 }
