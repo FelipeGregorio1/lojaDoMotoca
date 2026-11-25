@@ -1,0 +1,596 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+    background-color: #f8f9fb;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+.admin-container {
+    max-width: 1160px;
+    margin: 0 auto;
+    padding: 40px 20px 120px;
+}
+
+/* Cabeçalho da Página */
+.page-header {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.page-header .badge {
+    color: #e3000f;
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.page-header h1 {
+    font-size: 2rem;
+    font-weight: 900;
+    color: #111;
+    margin-bottom: 6px;
+}
+
+.page-header p {
+    color: #6b7280;
+    font-size: 0.95rem;
+}
+
+/* Layout em Grid para Produtos (2 Colunas) */
+.product-form {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 24px;
+    align-items: start;
+}
+
+/* Layout para Categorias (1 Coluna) */
+.category-form {
+    display: block;
+    max-width: 600px;
+}
+
+/* Estilo do Cartão (Section) */
+.card {
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02), 0 4px 12px rgba(0, 0, 0, 0.04);
+    border: 1px solid #e5e7eb;
+    padding: 24px;
+}
+
+.card-title {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: #111;
+    margin-bottom: 4px;
+}
+
+.card-subtitle {
+    font-size: 0.85rem;
+    color: #9ca3af;
+    margin-bottom: 20px;
+}
+
+.divider {
+    border: 0;
+    border-top: 1px solid #f3f4f6;
+    margin: 0 -24px 24px -24px;
+}
+
+/* Campos do Formulário */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+
+.form-group:last-of-type {
+    margin-bottom: 0;
+}
+
+.form-group span,
+.form-group label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 8px;
+}
+
+.form-group input,
+.form-group select {
+    padding: 12px 16px;
+    font-size: 0.95rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    background-color: #f9fafb;
+    color: #111;
+    outline: none;
+    width: 100%;
+    transition: border-color 0.2s, background-color 0.2s, box-shadow 0.2s;
+}
+
+/* Deixa o select mais curto nas informações do produto, igual à referência */
+.product-form .card:first-of-type select {
+    max-width: 280px;
+}
+
+.form-group select {
+    cursor: pointer;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: #d1d5db;
+    background-color: #ffffff;
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
+}
+
+/* Barra Fixa Inferior */
+.form-actions {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #ffffff;
+    border-top: 1px solid #e5e7eb;
+    padding: 16px 0;
+    z-index: 10;
+}
+
+.actions-container {
+    max-width: 1050px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+}
+
+/* Botões */
+.btn,
+a.btn {
+    padding: 12px 24px;
+    font-size: 0.85rem;
+    font-weight: 800;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none !important; /* Remove o sublinhado do link CANCELAR */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+.btn:active {
+    transform: scale(0.98);
+}
+
+.btn-cancel {
+    background-color: #f3f4f6;
+    color: #1f2937;
+}
+
+.btn-cancel:hover {
+    background-color: #e5e7eb;
+}
+
+.btn-submit {
+    background-color: #e3000f;
+    color: #ffffff;
+}
+
+.btn-submit:hover {
+    background-color: #cc000d;
+}
+
+:root {
+    --admin-bg: #ffffff;
+    --admin-pill-bg: #f3f4f6;
+    --admin-dark: #141414;
+    --admin-red: #e60012;
+    --admin-text-muted: #64748b;
+    --admin-text-dark: #1e293b;
+    --admin-border: #e2e8f0;
+    --admin-transition: 0.2s ease-in-out;
+}
+
+.admin-header {
+    width: 100%;
+    background-color: var(--admin-bg);
+    border-bottom: 1px solid var(--admin-border);
+    padding: 0.75rem 2rem;
+    box-sizing: border-box;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+.admin-header__container {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+}
+
+/* --- Esquerda: Brand & Badge --- */
+.admin-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.admin-brand__logo-link {
+    display: block;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.admin-brand__logo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.admin-brand__badge {
+    background-color: var(--admin-red);
+    color: #ffffff;
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    padding: 0.35rem 0.65rem;
+    border-radius: 6px;
+    text-transform: uppercase;
+    line-height: 1;
+}
+
+/* --- Centro: Menu em formato Pílula --- */
+.admin-nav {
+    background-color: var(--admin-pill-bg);
+    padding: 0.35rem;
+    border-radius: 14px;
+}
+
+.admin-nav__list {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.admin-nav__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1.15rem;
+    border-radius: 10px;
+    color: var(--admin-text-muted);
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all var(--admin-transition);
+    white-space: nowrap;
+}
+
+.admin-nav__link:hover:not(.is-active) {
+    color: var(--admin-text-dark);
+    background-color: rgba(0, 0, 0, 0.04);
+}
+
+.admin-nav__link.is-active {
+    background-color: var(--admin-dark);
+    color: #ffffff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+}
+
+.admin-nav__icon {
+    width: 17px;
+    height: 17px;
+    flex-shrink: 0;
+}
+
+/* --- Direita: Botões de Ação --- */
+.admin-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+}
+
+.admin-actions__form {
+    margin: 0;
+}
+
+.admin-actions__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.65rem 1.1rem;
+    border-radius: 10px;
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all var(--admin-transition);
+}
+
+.admin-actions__btn--outline {
+    background-color: #ffffff;
+    color: var(--admin-text-dark);
+    border: 1px solid var(--admin-border);
+}
+
+.admin-actions__btn--outline:hover {
+    background-color: var(--admin-pill-bg);
+    border-color: #cbd5e1;
+}
+
+.admin-actions__btn--dark {
+    background-color: var(--admin-dark);
+    color: #ffffff;
+    border: 1px solid var(--admin-dark);
+}
+
+.admin-actions__btn--dark:hover {
+    background-color: #2b2b2b;
+}
+
+/* --- Responsividade --- */
+@media (max-width: 992px) {
+    .admin-header {
+        padding: 0.75rem 1rem;
+    }
+
+    .admin-header__container {
+        flex-wrap: wrap;
+    }
+
+    .admin-nav {
+        order: 3;
+        width: 100%;
+        overflow-x: auto;
+    }
+
+    .admin-nav__list {
+        justify-content: space-between;
+    }
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .product-form {
+        grid-template-columns: 1fr;
+    }
+    .product-form .card:first-of-type select {
+        max-width: 100%;
+    }
+}
+
+/* ================= NOVOS CAMPOS: DESCRIÇÃO, TAMANHOS, FICHA E UPLOAD ================= */
+.form-column {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.form-group textarea {
+    padding: 12px 16px;
+    font-size: 0.95rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    background-color: #f9fafb;
+    color: #111;
+    outline: none;
+    width: 100%;
+    resize: vertical;
+    transition: border-color 0.2s, background-color 0.2s, box-shadow 0.2s;
+}
+
+.form-group textarea:focus {
+    border-color: #d1d5db;
+    background-color: #ffffff;
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
+}
+
+.specs-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+/* Botões Toggle SIM / NÃO */
+.toggle-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    background: #f3f4f6;
+    padding: 4px;
+    border-radius: 10px;
+}
+
+.toggle-btn {
+    padding: 10px 16px;
+    border: none;
+    border-radius: 8px;
+    background: transparent;
+    color: #64748b;
+    font-size: 0.8rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.toggle-btn.active {
+    background: #141414;
+    color: #ffffff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.14);
+}
+
+/* Bloco de Tamanhos */
+.sizes-wrapper {
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    padding: 14px;
+    margin-bottom: 16px;
+}
+
+.sizes-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+
+.sizes-header span {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #374151;
+}
+
+.btn-add-size {
+    background: #141414;
+    color: #ffffff;
+    border: none;
+    border-radius: 7px;
+    padding: 7px 12px;
+    font-size: 0.72rem;
+    font-weight: 800;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-add-size:hover {
+    background: #e60012;
+}
+
+.sizes-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.size-row {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr 38px;
+    gap: 8px;
+    align-items: center;
+}
+
+.size-row input {
+    padding: 10px 12px;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    background: #ffffff;
+    font-size: 0.9rem;
+    outline: none;
+}
+
+.btn-remove-size {
+    height: 38px;
+    border-radius: 8px;
+    border: 1px solid #fecaca;
+    background: #fef2f2;
+    color: #dc2626;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-remove-size:hover {
+    background: #dc2626;
+    color: #ffffff;
+}
+
+/* Upload de Arquivo Estilizado */
+.file-upload-box {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    border: 2px dashed #cbd5e1;
+    border-radius: 10px;
+    background: #f8fafc;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+}
+
+.file-upload-box:hover {
+    border-color: #e60012;
+    background: #fff5f5;
+}
+
+.file-upload-input {
+    display: none;
+}
+
+.file-upload-btn {
+    background: #141414;
+    color: #ffffff !important;
+    padding: 9px 14px;
+    border-radius: 8px;
+    font-size: 0.75rem !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.03em;
+    margin-bottom: 0 !important;
+    white-space: nowrap;
+    transition: background 0.2s;
+}
+
+.file-upload-box:hover .file-upload-btn {
+    background: #e60012;
+}
+
+.file-upload-name {
+    font-size: 0.85rem !important;
+    font-weight: 500 !important;
+    color: #64748b !important;
+    margin-bottom: 0 !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.file-preview {
+    margin-top: 12px;
+    width: 100%;
+    max-height: 180px;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 1px solid #e5e7eb;
+}
+
+/* Refino geral nos botões */
+.btn-submit {
+    box-shadow: 0 4px 12px rgba(227, 0, 15, 0.25);
+}
+
+.btn-cancel {
+    border: 1px solid #e5e7eb;
+}
+
+@media (max-width: 768px) {
+    .specs-grid {
+        grid-template-columns: 1fr;
+    }
+}

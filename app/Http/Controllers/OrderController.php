@@ -1,0 +1,135 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Models\Order;
+use App\Models\Cart;
+use App\Models\User;
+
+class OrderController extends Controller
+{
+    // Lista todos os pedidos (ou apenas os de um cliente específico)
+    public function index(Request $request){
+        $query = Order::with('User')->latest();
+        $selectedClient = null;
+
+        // Se clicou em "GERENCIAR PEDIDOS" na tela de clientes, filtra pelo user_id
+        if ($request->filled('user_id')) {
+            $query->where('user_id', $request->user_id);
+            $selectedClient = User::find($request->user_id);
+        }
+
+        $orders = $query->get();
+
+        return view('admin.orders', [
+            'orders' => $orders,
+            'selectedClient' => $selectedClient
+        ]);
+    }
+
+    // Muda o status do pedido (PAGO -> SEPARAÇÃO -> ENVIADO -> ENTREGUE)
+    public function updateStatus(Request $request, Order $order){
+        $order->update([
+            'status' => $request->status
+        ]);
+
+        return back();
+    }
+
+    public function checkoutForm(){
+        $carts = Cart::where('user_id', auth()->id())->with('Product')->get();
+
+        // Se o carrinho estiver vazio, volta para a tela do carrinho
+        if ($carts->isEmpty()) {
+            return redirect()->route('cart.index');
+        }
+
+        return view('client.checkout', [
+            'carts' => $carts,
+            'user'  => auth()->user(),
+        ]);
+    }
+
+    // Quando o cliente clica em "FINALIZAR COMPRA" lá no carrinho
+    public function checkout(){
+        $carts = Cart::where('user_id', auth()->id())->with('Product')->get();
+
+        if ($carts->isEmpty()) {
+            return redirect('/cart');
+        }
+
+        $subtotal = 0;
+
+        foreach ($carts as $cart) {
+            $product = $cart->Product;
+
+            if ($product) {
+                $rawPrice = (string) $product->price;
+                if (str_contains($rawPrice, ',')) {
+                    $rawPrice = str_replace(',', '.', str_replace('.', '', $rawPrice));
+                }
+                $cleanPrice = (float) preg_replace('/[^0-9.]/', '', $rawPrice);
+
+                $subtotal += $cleanPrice * (int) $cart->quantity;
+
+                if ($product->has_sizes && is_array($product->sizes) && $cart->size) {
+                    $updatedSizes = [];
+                    $newTotalStock = 0;
+
+                    foreach ($product->sizes as $item) {
+                        $itemStock = (int) ($item['stock'] ?? 0);
+                        if (($item['size'] ?? '') === $cart->size) {
+                            $itemStock = max(0, $itemStock - (int) $cart->quantity);
+                        }
+                        $updatedSizes[] = [
+                            'size'  => $item['size'],
+                            'stock' => $itemStock,
+                        ];
+                        $newTotalStock += $itemStock;
+                    }
+
+                    $product->update([
+                        'sizes' => $updatedSizes,
+                        'stock' => $newTotalStock,
+                    ]);
+                } elseif (isset($product->stock)) {
+                    $product->update([
+                        'stock' => max(0, $product->stock - $cart->quantity)
+                    ]);
+                } elseif (isset($product->quantity)) {
+                    $product->update([
+                        'quantity' => max(0, $product->quantity - $cart->quantity)
+                    ]);
+                }
+            }
+        }
+
+        $finalTotal = $subtotal >= 299 ? $subtotal : $subtotal + 29.90;
+
+        // Cria o pedido já com o status inicial EM PREPARAÇÃO
+        Order::create([
+            'user_id' => auth()->id(),
+            'total'   => $finalTotal,
+            'status'  => 'EM PREPARAÇÃO',
+        ]);
+
+        Cart::where('user_id', auth()->id())->delete();
+
+        return redirect()->route('profile.edit', ['tab' => 'pedidos'])
+                         ->with('status', 'order-created');
+    }
+
+    // Quando o cliente clica em "Cancelar compra" lá em Meus Pedidos
+    public function cancel(Order $order)
+    {
+        // Garante que o pedido pertence ao usuário logado e ainda não foi entregue
+        if ($order->user_id === auth()->id() && !in_array(mb_strtoupper($order->status), ['ENTREGUE', 'CANCELADO'])) {
+            $order->update([
+                'status' => 'CANCELADO'
+            ]);
+        }
+
+        return redirect()->route('profile.edit', ['tab' => 'pedidos']);
+    }
+}
