@@ -133,10 +133,6 @@
           POLÍTICA DE <span>PRIVACIDADE</span>
         </h1>
 
-        <p class="hero-meta">
-          Última atualização: <time datetime="2024-09-01">01 de setembro de 2024</time> · Versão 3.2
-        </p>
-
         <p class="hero-subtitle">
           A Loja do Motoca respeita e protege a privacidade de todos os usuários, em conformidade com a Lei Geral de Proteção de Dados (LGPD — Lei nº 13.709/2018).
         </p>

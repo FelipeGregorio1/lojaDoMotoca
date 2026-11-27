@@ -133,10 +133,6 @@
           TERMOS DE <span>USO</span>
         </h1>
 
-        <p class="hero-meta">
-          Última atualização: <time datetime="2024-09-01">01 de setembro de 2024</time> · Versão 2.5
-        </p>
-
         <p class="hero-subtitle">
           Leia atentamente antes de utilizar nossa plataforma. Estes termos regem a relação entre você e a Loja do Motoca Comércio de Acessórios Ltda.
         </p>

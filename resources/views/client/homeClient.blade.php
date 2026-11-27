@@ -128,7 +128,7 @@
 
   <main>
     <!-- ================= 3. HERO BANNER ================= -->
-    <section class="hero" aria-label="Destaque principal">
+    <section class="hero" aria-label="Destaque principal" style="background-image: linear-gradient(90deg, rgba(7, 7, 9, 0.96) 0%, rgba(10, 10, 12, 0.85) 50%, rgba(10, 10, 12, 0.65) 100%), url('{{ asset('img/HeroBanner.png') }}');">
       <div class="container">
         <div class="hero-content">
           <h1 class="hero-title">
@@ -141,7 +141,7 @@
             +4.000 produtos. Peças de reposição, capacetes e equipamentos EPI com compatibilidade verificada para a sua moto.
           </p>
           <div class="hero-actions">
-            <a href="#ofertas" class="btn-hero-primary">VER PRODUTOS</a>
+            <a href="#produtos" class="btn-hero-primary">VER PRODUTOS</a>
           </div>
         </div>
       </div>
@@ -169,7 +169,7 @@
     </section>
 
     <!-- ================= 5. PRODUTOS EM DESTAQUE ================= -->
-    <section id="ofertas" class="section-offers">
+    <section id="produtos" class="section-offers">
       <div class="container">
         <header class="section-header">
           <h2 class="section-title">PRODUTOS <span>EM DESTAQUE</span></h2>

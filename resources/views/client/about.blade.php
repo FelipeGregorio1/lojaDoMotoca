@@ -135,7 +135,7 @@
         </h1>
 
         <p class="hero-subtitle">
-          Desde 2012 equipando motociclistas com o melhor do mercado — de capacetes premium a peças de performance.
+          Desde 2026 equipando motociclistas com o melhor do mercado — de capacetes premium a peças de performance.
         </p>
       </div>
     </section>
@@ -170,13 +170,13 @@
         <div class="story-content">
           <h2 id="story-heading" class="section-title">NOSSA HISTÓRIA</h2>
           <p>
-            <strong>A Loja do Motoca</strong> nasceu em 2012 na garagem de Carlos Mendes — um mecânico apaixonado por motos que não encontrava os acessórios que precisava com facilidade e preço justo. O que começou como uma pequena revenda de capacetes em São Paulo cresceu para se tornar uma das maiores plataformas de acessórios para motociclistas do Brasil.
+            <strong>A Loja do Motoca</strong> nasceu da paixão pelas duas rodas e de uma necessidade real: encontrar equipamentos de segurança, peças e acessórios de qualidade sem complicação e com preço justo. O que começou em São Paulo com o objetivo de ajudar outros motociclistas a equiparem suas motos, hoje conecta pilotos de todo o Brasil ao que há de melhor no mercado.
           </p>
           <p>
-            Hoje, com mais de <strong>4.000 produtos catalogados</strong> e um time de especialistas motociclistas, oferecemos tudo: de capacetes das melhores marcas mundiais a peças de reposição, pneus de alta performance, óleos e ferramentas profissionais.
+            Trabalhamos com uma curadoria completa que vai do dia a dia na cidade às viagens de estrada — reunindo capacetes, vestuário, pneus, lubrificantes e acessórios das marcas que são referência mundial em proteção e desempenho.
           </p>
           <p>
-            Cada produto é selecionado com rigor técnico e testado por nossa equipe. Não vendemos o que não usaríamos nós mesmos.
+            Aqui, quem atende também pilota. Cada item do nosso catálogo é escolhido com critério técnico, porque seguimos uma regra simples: não vendemos nada que não colocaríamos na nossa própria moto.
           </p>
         </div>
 
