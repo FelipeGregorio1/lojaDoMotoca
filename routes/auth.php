@@ -33,15 +33,12 @@ Route::middleware('guest')->group(function () {
 
     Route::post('reset-password', [NewPasswordController::class, 'store'])
         ->name('password.store');
-<<<<<<< HEAD
 
     Route::get('verify-reset-code', [PasswordResetLinkController::class, 'showVerifyForm'])
         ->name('password.code.form');
 
     Route::post('verify-reset-code', [PasswordResetLinkController::class, 'verifyCode'])
         ->name('password.code.verify');
-=======
->>>>>>> ee0b4fc903e302b86beb4b963e673022e6723f01
 });
 
 Route::middleware('auth')->group(function () {
@@ -65,10 +62,7 @@ Route::middleware('auth')->group(function () {
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
         ->name('logout');
-<<<<<<< HEAD
 
     Route::post('password/send-code', [PasswordController::class, 'sendCode'])
         ->name('password.send.code');
-=======
->>>>>>> ee0b4fc903e302b86beb4b963e673022e6723f01
 });

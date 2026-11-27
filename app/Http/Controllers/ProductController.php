@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-<<<<<<< HEAD
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -19,29 +18,10 @@ class ProductController extends Controller
         $data = $this->prepareProductData($request);
 
         if ($request->hasFile('image')) {
-=======
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
-use App\Models\Product;
-
-
-class ProductController extends Controller
-{
-    public function create(){
-        return view('product.create');
-    }
-
-    public function store(Request $request){
-        $data = $request->all();
-
-        if ($request->hasFile('image')) {
-            // Salva em storage/app/public/products e retorna "products/nome_hash.ext"
->>>>>>> ee0b4fc903e302b86beb4b963e673022e6723f01
             $data['image'] = $request->file('image')->store('products', 'public');
         }
 
         Product::create($data);
-<<<<<<< HEAD
 
         return redirect('/product');
     }
@@ -59,21 +39,6 @@ class ProductController extends Controller
     public function update(Request $request, Product $product)
     {
         $data = $this->prepareProductData($request);
-=======
-        return redirect('/product');
-    }
-
-    public function index(){
-        return view('product.index', ['products' => Product::all()]);
-    }
-
-    public function edit(Product $product){
-        return view('product.edit', ['product' => $product]);
-    }
-
-    public function update(Request $request, Product $product){
-        $data = $request->all();
->>>>>>> ee0b4fc903e302b86beb4b963e673022e6723f01
 
         if ($request->hasFile('image')) {
             if ($product->image) {
@@ -83,25 +48,17 @@ class ProductController extends Controller
         }
 
         $product->update($data);
-<<<<<<< HEAD
 
         return redirect('/product');
     }
 
     public function destroy(Product $product)
     {
-=======
-        return redirect('/product');
-    }
-
-    public function destroy(Product $product){
->>>>>>> ee0b4fc903e302b86beb4b963e673022e6723f01
         if ($product->image) {
             Storage::disk('public')->delete($product->image);
         }
 
         $product->delete();
-<<<<<<< HEAD
 
         return redirect('/product');
     }
@@ -156,8 +113,4 @@ class ProductController extends Controller
             'origin' => $request->input('origin'),
         ];
     }
-=======
-        return redirect('/product');
-    }
->>>>>>> ee0b4fc903e302b86beb4b963e673022e6723f01
 }

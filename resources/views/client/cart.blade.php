@@ -96,11 +96,7 @@
 
         @auth
           @if(auth()->user()->is_admin)
-<<<<<<< HEAD
             <a href="{{ route('admin.dashboard') }}" class="action-item action-admin">
-=======
-            <a href="{{ route('product.index') }}" class="action-item action-admin">
->>>>>>> ee0b4fc903e302b86beb4b963e673022e6723f01
               <div class="action-icon-box">
                 <svg class="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                   <rect x="3" y="3" width="7" height="7"></rect>
@@ -176,7 +172,6 @@
           <section class="cart-items-section" aria-label="Itens no carrinho">
             <div class="cart-items-list">
               @foreach($carts as $cart)
-<<<<<<< HEAD
                 @php
                   $product = $cart->Product;
                   $maxStock = (int) ($product?->stock ?? 0);
@@ -193,8 +188,6 @@
                   $atMaxStock = $cart->quantity >= $maxStock;
                 @endphp
 
-=======
->>>>>>> ee0b4fc903e302b86beb4b963e673022e6723f01
                 <article class="cart-item-card">
                   
                   <a href="{{ route('client.product.show', $cart->Product->id) }}" class="cart-item-thumb">
@@ -206,14 +199,11 @@
                     <h2 class="cart-item-name">
                       <a href="{{ route('client.product.show', $cart->Product->id) }}">{{ $cart->Product->name }}</a>
                     </h2>
-<<<<<<< HEAD
                     @if($cart->size)
                       <span style="display: inline-block; font-size: 12px; font-weight: 700; color: #475569; margin-bottom: 8px;">
                         Tamanho: {{ $cart->size }}
                       </span>
                     @endif
-=======
->>>>>>> ee0b4fc903e302b86beb4b963e673022e6723f01
 
                     <div class="cart-item-actions-row">
                       <!-- Botões - e + -->
@@ -221,11 +211,7 @@
                         @csrf
                         <button type="submit" name="action" value="decrease" class="qty-btn">−</button>
                         <span class="qty-value">{{ $cart->quantity }}</span>
-<<<<<<< HEAD
                         <button type="submit" name="action" value="increase" class="qty-btn"  style="{{ $atMaxStock ? 'opacity: 0.35; cursor: not-allowed;' : '' }}" title="{{ $atMaxStock ? 'Limite de estoque atingido' : 'Aumentar quantidade' }}">+</button>
-=======
-                        <button type="submit" name="action" value="increase" class="qty-btn">+</button>
->>>>>>> ee0b4fc903e302b86beb4b963e673022e6723f01
                       </form>
 
                       <!-- Preço e Remover -->

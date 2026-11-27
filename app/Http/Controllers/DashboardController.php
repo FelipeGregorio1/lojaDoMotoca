@@ -10,7 +10,6 @@ use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
-<<<<<<< HEAD
     public function index(Request $request)
     {
         // 1. Indicadores do topo (KPIs)
@@ -18,12 +17,6 @@ class DashboardController extends Controller
             ->whereDate('created_at', Carbon::today())
             ->sum('total');
 
-=======
-    public function index()
-    {
-        // 1. Indicadores do topo (KPIs)
-        $salesToday = Order::whereDate('created_at', Carbon::today())->sum('total');
->>>>>>> ee0b4fc903e302b86beb4b963e673022e6723f01
         $ordersToday = Order::whereDate('created_at', Carbon::today())->count();
         $totalOrders = Order::count();
         $totalProducts = Product::count();
@@ -32,7 +25,6 @@ class DashboardController extends Controller
         // 2. Últimos 3 pedidos para a lista "Pedidos recentes"
         $recentOrders = Order::with('User')->latest()->take(3)->get();
 
-<<<<<<< HEAD
         // 3. Filtro do Gráfico (day = dia específico, week = 7 dias, month = mês inteiro)
         $period = $request->input('period', 'week');
         $refDate = $request->filled('date')
@@ -147,24 +139,6 @@ class DashboardController extends Controller
                     'total' => $dayTotal,
                 ];
             }
-=======
-        // 3. Dados dos últimos 7 dias para o Gráfico em CSS Puro
-        $chartData = [];
-        $maxSale = 0;
-
-        for ($i = 6; $i >= 0; $i--) {
-            $date = Carbon::today()->subDays($i);
-            $dayTotal = (float) Order::whereDate('created_at', $date)->sum('total');
-
-            if ($dayTotal > $maxSale) {
-                $maxSale = $dayTotal;
-            }
-
-            $chartData[] = [
-                'label' => $date->format('d/m'),
-                'total' => $dayTotal,
-            ];
->>>>>>> ee0b4fc903e302b86beb4b963e673022e6723f01
         }
 
         return view('admin.dashboard', compact(
@@ -175,7 +149,6 @@ class DashboardController extends Controller
             'totalCategories',
             'recentOrders',
             'chartData',
-<<<<<<< HEAD
             'maxSale',
             'period',
             'selectedDate',
@@ -183,9 +156,3 @@ class DashboardController extends Controller
         ));
     }
 }
-=======
-            'maxSale'
-        ));
-    }
-}
->>>>>>> ee0b4fc903e302b86beb4b963e673022e6723f01

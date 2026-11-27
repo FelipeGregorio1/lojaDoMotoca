@@ -75,11 +75,7 @@
 
         @auth
           @if(auth()->user()->is_admin)
-<<<<<<< HEAD
             <a href="{{ route('admin.dashboard') }}" class="action-item action-admin">
-=======
-            <a href="{{ route('product.index') }}" class="action-item action-admin">
->>>>>>> ee0b4fc903e302b86beb4b963e673022e6723f01
               <div class="action-icon-box">
                 <svg class="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                   <rect x="3" y="3" width="7" height="7"></rect>
@@ -187,7 +183,6 @@
               $isFav = auth()->check() && \App\Models\Favorite::where('user_id', auth()->id())->where('product_id', $product->id)->exists();
             @endphp
 
-<<<<<<< HEAD
           @php
             $isFav = auth()->check() && \App\Models\Favorite::where('user_id', auth()->id())->where('product_id', $product->id)->exists();
             $hasSizes = $product->has_sizes && is_array($product->sizes) && count($product->sizes) > 0;
@@ -260,39 +255,6 @@
               Selecione um tamanho para liberar o botão de compra.
             </p>
           @endif
-=======
-            <div style="display: flex; align-items: stretch; gap: 12px; width: 100%; margin: 24px 0;">
-              
-              <!-- 1. Formulário: Quantidade + Adicionar ao Carrinho (Lado a Lado) -->
-              <form action="{{ route('cart.store', $product->id) }}" method="POST" style="display: flex; align-items: stretch; gap: 12px; flex: 1; margin: 0;">
-                @csrf
-
-                <div class="qty-selector" aria-label="Quantidade" style="display: inline-flex; align-items: center; justify-content: space-between; width: 120px; height: 48px; flex-shrink: 0; border: 1px solid #e2e8f0; border-radius: 10px; background: #f8fafc; padding: 0 6px;">
-                  <button type="button" class="qty-btn" id="qtyMinus" aria-label="Diminuir quantidade" style="width: 32px; height: 32px; border: none; background: transparent; font-size: 18px; font-weight: 700; color: #475569; cursor: pointer;">−</button>
-                  <input type="number" name="quantity" id="qtyInput" class="qty-input" value="1" min="1" readonly style="width: 36px; text-align: center; border: none; background: transparent; font-size: 14px; font-weight: 800; color: #0f172a; outline: none;">
-                  <button type="button" class="qty-btn" id="qtyPlus" aria-label="Aumentar quantidade" style="width: 32px; height: 32px; border: none; background: transparent; font-size: 18px; font-weight: 700; color: #475569; cursor: pointer;">+</button>
-                </div>
-
-                <button type="submit" id="addToCartBtn" class="btn-add-cart" style="flex: 1; height: 48px; margin: 0; display: inline-flex; align-items: center; justify-content: center; gap: 10px; border-radius: 10px;">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="9" cy="21" r="1"></circle>
-                    <circle cx="20" cy="21" r="1"></circle>
-                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-                  </svg>
-                  <span>ADICIONAR AO CARRINHO</span>
-                </button>
-              </form>
-
-              <!-- 2. Formulário: Botão Favoritar (Coração) -->
-              <form action="{{ route('favorites.toggle', $product->id) }}" method="POST" style="margin: 0; display: flex;">
-                @csrf
-                <button type="submit" title="Favoritar produto" style="width: 48px; height: 48px; flex-shrink: 0; border-radius: 10px; border: 1px solid {{ $isFav ? '#fecdd3' : '#e2e8f0' }}; background: {{ $isFav ? '#fff1f2' : '#f8fafc' }}; color: {{ $isFav ? '#e11d48' : '#94a3b8' }}; font-size: 20px; line-height: 1; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; transition: all 0.2s;">
-                  ♥
-                </button>
-              </form>
-
-            </div>
->>>>>>> ee0b4fc903e302b86beb4b963e673022e6723f01
 
           <!-- Benefícios -->
           <div class="trust-features">
@@ -366,11 +328,7 @@
           <ul class="specs-list">
             <li>
               <span class="spec-label">Marca</span>
-<<<<<<< HEAD
               <strong class="spec-value">{{ $product->brand ?: 'LDM' }}</strong>
-=======
-              <strong class="spec-value">{{ $product->brand ?? 'LDM' }}</strong>
->>>>>>> ee0b4fc903e302b86beb4b963e673022e6723f01
             </li>
             <li>
               <span class="spec-label">Categoria</span>
@@ -378,7 +336,6 @@
             </li>
             <li>
               <span class="spec-label">Garantia</span>
-<<<<<<< HEAD
               <strong class="spec-value">{{ $product->warranty ?: '12 meses' }}</strong>
             </li>
             <li>
@@ -388,17 +345,6 @@
             <li>
               <span class="spec-label">Origem</span>
               <strong class="spec-value">{{ $product->origin ?: 'Produto original' }}</strong>
-=======
-              <strong class="spec-value">12 meses</strong>
-            </li>
-            <li>
-              <span class="spec-label">Disponibilidade</span>
-              <strong class="spec-value">Pronta entrega</strong>
-            </li>
-            <li>
-              <span class="spec-label">Origem</span>
-              <strong class="spec-value">Produto original</strong>
->>>>>>> ee0b4fc903e302b86beb4b963e673022e6723f01
             </li>
           </ul>
         </div>
@@ -426,7 +372,6 @@
 
   <!-- Script para seleção de tamanho, quantidade e troca de imagem -->
   <script>
-<<<<<<< HEAD
     let maxStock = {{ (int) ($product->stock ?? 99) }};
 
     function selectSize(button, size, stock) {
@@ -453,42 +398,16 @@
 
       const helper = document.getElementById('sizeHelperText');
       if (helper) helper.style.display = 'none';
-=======
-    function selectSize(button, size) {
-      document.querySelectorAll('.size-btn').forEach(btn => btn.classList.remove('active'));
-      button.classList.add('active');
-      
-      document.getElementById('selectedSizeInput').value = size;
-      
-      const cartBtn = document.getElementById('addToCartBtn');
-      cartBtn.disabled = false;
-      cartBtn.classList.add('enabled');
-      
-      document.getElementById('sizeHelperText').style.visibility = 'hidden';
->>>>>>> ee0b4fc903e302b86beb4b963e673022e6723f01
     }
 
     function changeQty(amount) {
       const input = document.getElementById('qtyInput');
       let current = parseInt(input.value) || 1;
-<<<<<<< HEAD
       let next = current + amount;
       if (next >= 1 && next <= maxStock) {
         input.value = next;
       }
     }
-=======
-      if (current + amount >= 1) {
-        input.value = current + amount;
-      }
-    }
-
-    function changeImage(src, thumbButton) {
-      document.getElementById('mainProductImage').src = src;
-      document.querySelectorAll('.thumb-item').forEach(btn => btn.classList.remove('active'));
-      thumbButton.classList.add('active');
-    }
->>>>>>> ee0b4fc903e302b86beb4b963e673022e6723f01
   </script>
 </body>
 </html>

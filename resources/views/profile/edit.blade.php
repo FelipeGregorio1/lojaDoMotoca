@@ -55,11 +55,7 @@
       </form>
 
       <nav class="nav-actions" aria-label="Menu do usuário">
-<<<<<<< HEAD
         <a href="{{ auth()->check() ? route('profile.edit', ['tab' => 'favoritos']) : route('login') }}" class="action-item">
-=======
-        <a href="#" class="action-item">
->>>>>>> ee0b4fc903e302b86beb4b963e673022e6723f01
           <div class="action-icon-box">
             <svg class="action-icon" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
@@ -99,11 +95,7 @@
 
         @auth
           @if(auth()->user()->is_admin)
-<<<<<<< HEAD
             <a href="{{ route('admin.dashboard') }}" class="action-item action-admin">
-=======
-            <a href="{{ route('product.index') }}" class="action-item action-admin">
->>>>>>> ee0b4fc903e302b86beb4b963e673022e6723f01
               <div class="action-icon-box">
                 <svg class="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                   <rect x="3" y="3" width="7" height="7"></rect>
@@ -217,7 +209,6 @@
 
         <!-- ================= COLUNA DIREITA: CONTEÚDO ================= -->
         <div class="profile-content-card">
-<<<<<<< HEAD
           
           <!-- Mensagem de Sucesso do Breeze -->
           @if (session('status') === 'profile-updated')
@@ -228,18 +219,6 @@
             <div class="alert-success" role="status">Código verificado! Você acessou sua conta e já pode alterar sua senha abaixo.</div>
           @elseif (session('status') === 'password-code-sent')
             <div class="alert-success" role="status">Enviamos um código de 6 dígitos para {{ $email }}. Digite-o abaixo para confirmar a troca de senha.</div>
-=======
-
-          <!-- Mensagem de Sucesso do Breeze -->
-          @if (session('status') === 'profile-updated')
-            <div class="alert-success" role="status">
-              Perfil atualizado com sucesso!
-            </div>
-          @elseif (session('status') === 'password-updated')
-            <div class="alert-success" role="status">
-              Senha atualizada com sucesso!
-            </div>
->>>>>>> ee0b4fc903e302b86beb4b963e673022e6723f01
           @endif
 
           <!-- ABA 1: MEU PERFIL -->
@@ -524,7 +503,6 @@
             @endif
           </section>
 
-<<<<<<< HEAD
           <!-- ABA 5: SEGURANÇA (Com verificação de 6 dígitos por e-mail) -->
           <section id="tab-seguranca" class="tab-section" aria-labelledby="heading-seguranca">
             <header class="content-header">
@@ -543,15 +521,10 @@
               Para sua segurança, clique em <strong>ENVIAR CÓDIGO NO E-MAIL</strong> e informe o código de 6 dígitos antes de salvar a nova senha.
             </p>
 
-=======
-          <!-- ABA 5: SEGURANÇA (Troca de senha integrada ao Breeze) -->
-          <section id="tab-seguranca" class="tab-section" aria-labelledby="heading-seguranca">
->>>>>>> ee0b4fc903e302b86beb4b963e673022e6723f01
             <form method="POST" action="{{ route('password.update') }}">
               @csrf
               @method('put')
 
-<<<<<<< HEAD
               <div class="profile-form-grid">
                 @if (!session('password_reset_verified'))
                   <div class="form-group">
@@ -567,18 +540,6 @@
                   <label for="verification_code" class="form-label">Código de Verificação (6 dígitos)</label>
                   <input type="text" id="verification_code" name="verification_code" maxlength="6" inputmode="numeric" class="form-control" placeholder="000000" required>
                   @error('verification_code', 'updatePassword')
-=======
-              <header class="content-header">
-                <h2 class="content-title" id="heading-seguranca">SEGURANÇA</h2>
-                <button type="submit" class="btn-action-red">SALVAR SENHA</button>
-              </header>
-
-              <div class="profile-form-grid">
-                <div class="form-group">
-                  <label for="current_password" class="form-label">Senha Atual</label>
-                  <input type="password" id="current_password" name="current_password" class="form-control" placeholder="••••••••" required>
-                  @error('current_password', 'updatePassword')
->>>>>>> ee0b4fc903e302b86beb4b963e673022e6723f01
                     <span class="error-msg">{{ $message }}</span>
                   @enderror
                 </div>
@@ -596,13 +557,10 @@
                   <input type="password" id="password_confirmation" name="password_confirmation" class="form-control" placeholder="Repita a nova senha" required>
                 </div>
               </div>
-<<<<<<< HEAD
 
               <div style="margin-top: 20px; display: flex; justify-content: flex-end;">
                 <button type="submit" class="btn-action-red">SALVAR SENHA</button>
               </div>
-=======
->>>>>>> ee0b4fc903e302b86beb4b963e673022e6723f01
             </form>
           </section>
 
@@ -635,11 +593,7 @@
     const btnEditSave = document.getElementById('btnEditSave');
     const btnCancelEdit = document.getElementById('btnCancelEdit');
     const profileForm = document.getElementById('profileForm');
-<<<<<<< HEAD
     const profileInputs = document.querySelectorAll('.profile-input, .profile-editable');
-=======
-    const profileInputs = document.querySelectorAll('.profile-input');
->>>>>>> ee0b4fc903e302b86beb4b963e673022e6723f01
     const firstNameInput = document.getElementById('first_name');
     const lastNameInput = document.getElementById('last_name');
     const emailInput = document.getElementById('email');
@@ -709,19 +663,6 @@
       }
     });
 
-<<<<<<< HEAD
-=======
-    // 4. Abre automaticamente a aba Meus Pedidos ou Endereços quando vier na URL (?tab=...)
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get('tab') === 'pedidos') {
-      document.querySelector('[data-target="tab-pedidos"]')?.click();
-    } else if (urlParams.get('tab') === 'enderecos') {
-      document.querySelector('[data-target="tab-enderecos"]')?.click();
-    } else if (urlParams.get('tab') === 'favoritos') {
-      document.querySelector('[data-target="tab-favoritos"]')?.click();
-    }
-
->>>>>>> ee0b4fc903e302b86beb4b963e673022e6723f01
     // Atualiza o nome e as iniciais do card lateral em tempo real enquanto edita
     function updateSidebarPreview() {
       const fName = firstNameInput.value.trim() || 'Nome';
@@ -752,7 +693,6 @@
       e.target.value = v;
     });
 
-<<<<<<< HEAD
     // ================= 2. NAVEGAÇÃO E PERSISTÊNCIA DAS ABAS =================
     const navButtons = document.querySelectorAll('.account-nav-btn[data-target]');
     const tabSections = document.querySelectorAll('.tab-section');
@@ -796,24 +736,6 @@
     } else if (savedTab) {
       activateTab(savedTab);
     }
-=======
-    // ================= 2. NAVEGAÇÃO ENTRE AS ABAS DO MENU LATERAL =================
-    const navButtons = document.querySelectorAll('.account-nav-btn[data-target]');
-    const tabSections = document.querySelectorAll('.tab-section');
-
-    navButtons.forEach(btn => {
-      btn.addEventListener('click', function () {
-        const targetId = this.getAttribute('data-target');
-
-        navButtons.forEach(b => b.classList.remove('active'));
-        this.classList.add('active');
-
-        tabSections.forEach(sec => {
-          sec.classList.toggle('active', sec.id === targetId);
-        });
-      });
-    });
->>>>>>> ee0b4fc903e302b86beb4b963e673022e6723f01
   </script>
 
 </body>

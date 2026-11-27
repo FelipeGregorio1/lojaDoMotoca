@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<<<<<<< HEAD
     <title>Editar Produto - Admin Loja do Motoca</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,17 +16,6 @@
     <header class="admin-header">
         <div class="admin-header__container">
             
-=======
-    <title>Editar Produto</title>
-    <link rel="stylesheet" href="../../css/newProduct.css">
-</head>
-<body class="admin-container">
-
-    <header class="admin-header">
-        <div class="admin-header__container">
-            
-            <!-- Esquerda: Logo + Badge ADMIN -->
->>>>>>> ee0b4fc903e302b86beb4b963e673022e6723f01
             <div class="admin-brand">
                 <a href="{{ url('/') }}" class="admin-brand__logo-link" title="Loja do Motoca">
                     <img src="{{ asset('img/logoLDM.png') }}" alt="Logo Loja do Motoca" class="admin-brand__logo">
@@ -35,17 +23,9 @@
                 <span class="admin-brand__badge">ADMIN</span>
             </div>
 
-<<<<<<< HEAD
             <nav class="admin-nav" aria-label="Menu Administrativo">
                 <ul class="admin-nav__list">
                     
-=======
-            <!-- Centro: Navegação Principal -->
-            <nav class="admin-nav" aria-label="Menu Administrativo">
-                <ul class="admin-nav__list">
-                    
-                    <!-- Visão Geral -->
->>>>>>> ee0b4fc903e302b86beb4b963e673022e6723f01
                     <li class="admin-nav__item">
                         <a href="{{ route('admin.dashboard') }}" class="admin-nav__link {{ request()->routeIs('admin.dashboard*') ? 'is-active' : '' }}">
                             <svg class="admin-nav__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -58,10 +38,6 @@
                         </a>
                     </li>
 
-<<<<<<< HEAD
-=======
-                    <!-- Categorias (Ativo em index, create, edit, etc.) -->
->>>>>>> ee0b4fc903e302b86beb4b963e673022e6723f01
                     <li class="admin-nav__item">
                         <a href="{{ route('category.index') }}" class="admin-nav__link {{ request()->routeIs('*category.*') ? 'is-active' : '' }}">
                             <svg class="admin-nav__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -76,10 +52,6 @@
                         </a>
                     </li>
 
-<<<<<<< HEAD
-=======
-                    <!-- Produtos (Ativo em index, create, edit, etc.) -->
->>>>>>> ee0b4fc903e302b86beb4b963e673022e6723f01
                     <li class="admin-nav__item">
                         <a href="{{ route('product.index') }}" class="admin-nav__link {{ request()->routeIs('*product.*') ? 'is-active' : '' }}">
                             <svg class="admin-nav__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -91,14 +63,8 @@
                         </a>
                     </li>
 
-<<<<<<< HEAD
                     <li class="admin-nav__item">
                         <a href="{{ route('admin.orders.index') }}" class="admin-nav__link {{ request()->routeIs('*orders*') ? 'is-active' : '' }}">
-=======
-                    <!-- Pedidos -->
-                    <li class="admin-nav__item">
-                        <a href="{{ route('admin.orders.index') }}" class="admin-nav__link {{ request()->routeIs('*pedidos*') ? 'is-active' : '' }}">
->>>>>>> ee0b4fc903e302b86beb4b963e673022e6723f01
                             <svg class="admin-nav__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                                 <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
                                 <line x1="3" y1="6" x2="21" y2="6"></line>
@@ -108,14 +74,8 @@
                         </a>
                     </li>
 
-<<<<<<< HEAD
                     <li class="admin-nav__item">
                         <a href="{{ route('admin.clients.index') }}" class="admin-nav__link {{ request()->routeIs('*clients*') ? 'is-active' : '' }}">
-=======
-                    <!-- Clientes -->
-                    <li class="admin-nav__item">
-                        <a href="{{ route('admin.clients.index') }}" class="admin-nav__link {{ request()->routeIs('*clientes*') ? 'is-active' : '' }}">
->>>>>>> ee0b4fc903e302b86beb4b963e673022e6723f01
                             <svg class="admin-nav__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                                 <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
                                 <circle cx="9" cy="7" r="4"></circle>
@@ -129,10 +89,6 @@
                 </ul>
             </nav>
 
-<<<<<<< HEAD
-=======
-            <!-- Direita: Ações (Ver Loja e Sair) -->
->>>>>>> ee0b4fc903e302b86beb4b963e673022e6723f01
             <div class="admin-actions">
                 <a href="{{ url('/') }}" class="admin-actions__btn admin-actions__btn--outline">
                     VER LOJA
@@ -149,7 +105,6 @@
         </div>
     </header>
 
-<<<<<<< HEAD
     <main  class="admin-container">
 
         <header class="page-header">
@@ -267,63 +222,6 @@
                     </div>
                 </section>
             </div>
-=======
-    <header class="page-header">
-        <span class="badge">PAINEL ADMINISTRATIVO</span>
-        <h1>Editar produto</h1>
-        <p>Atualize as informações comerciais e de estoque desta peça ou acessório.</p>
-    </header>
-
-    <main>
-        <form action="/product/update/{{ $product->id }}" method="POST" enctype="multipart/form-data" class="product-form">
-            @csrf
-            
-            <section class="card">
-                <h2 class="card-title">Informações do produto</h2>
-                <p class="card-subtitle">Dados principais exibidos no catálogo da loja.</p>
-                
-                <hr class="divider">
-                
-                <label class="form-group">
-                    <span>Nome do produto</span>
-                    <input type="text" name="name" value="{{ $product->name }}" required>
-                </label>
-
-                <label class="form-group">
-                    <span>Categoria</span>
-                    <select name="category_id" required>
-                        <option value="">Selecione</option>
-                        @foreach(\App\Models\Category::all() as $c)
-                            <option value="{{ $c->id }}" {{ $product->category_id == $c->id ? 'selected' : '' }}>
-                                {{ $c->name }}
-                            </option>
-                        @endforeach
-                    </select>
-                </label>
-            </section>
-
-            <section class="card">
-                <h2 class="card-title">Venda e estoque</h2>
-                <p class="card-subtitle">Valores usados na operação da loja.</p>
-                
-                <hr class="divider">
-                
-                <label class="form-group">
-                    <span>Preço (R$)</span>
-                    <input type="text" name="price" value="{{ $product->price }}" placeholder="0,00" required>
-                </label>
-
-                <label class="form-group">
-                    <span>Estoque</span>
-                    <input type="number" name="stock" value="{{ $product->stock }}" placeholder="0" required>
-                </label>
-
-                <label for="image">
-                    <span>Imagem do produto</span>
-                    <input type="file" name="image" id="image" accept="image/*">
-                </label>
-            </section>
->>>>>>> ee0b4fc903e302b86beb4b963e673022e6723f01
 
             <footer class="form-actions">
                 <nav class="actions-container">
@@ -334,7 +232,6 @@
         </form>
     </main>
 
-<<<<<<< HEAD
     <script>
         const existingSizes = @json($product->sizes ?? []);
         const toggleButtons = document.querySelectorAll('.toggle-btn');
@@ -406,7 +303,5 @@
             }
         });
     </script>
-=======
->>>>>>> ee0b4fc903e302b86beb4b963e673022e6723f01
 </body>
 </html>

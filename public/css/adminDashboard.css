@@ -303,20 +303,12 @@ body {
 
 .css-bar-chart {
     display: grid;
-<<<<<<< HEAD
     grid-auto-flow: column;
     grid-auto-columns: minmax(52px, 1fr);
     gap: 12px;
     align-items: end;
     overflow-x: auto;
     padding-bottom: 4px;
-=======
-    grid-template-columns: repeat(7, 1fr);
-    gap: 16px;
-    height: 190px;
-    padding-top: 16px;
-    align-items: end;
->>>>>>> ee0b4fc903e302b86beb4b963e673022e6723f01
 }
 
 .chart-column {
@@ -362,7 +354,6 @@ body {
     color: #94a3b8;
 }
 
-<<<<<<< HEAD
 .chart-header {
     display: flex;
     align-items: center;
@@ -397,8 +388,6 @@ body {
     border-color: #cbd5e1;
 }
 
-=======
->>>>>>> ee0b4fc903e302b86beb4b963e673022e6723f01
 /* ================= 4. GRID INFERIOR (PEDIDOS + AÇÕES) ================= */
 .dashboard-bottom-grid {
     display: grid;

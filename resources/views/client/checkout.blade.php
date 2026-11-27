@@ -275,14 +275,10 @@
           <ul class="summary-items-mini">
             @foreach($carts as $cart)
               <li class="summary-mini-item">
-<<<<<<< HEAD
                 <span class="mini-item-name">
                   {{ $cart->quantity }}x {{ $cart->Product->name }}
                   @if($cart->size) (Tam: {{ $cart->size }}) @endif
                 </span>
-=======
-                <span class="mini-item-name">{{ $cart->quantity }}x {{ $cart->Product->name }}</span>
->>>>>>> ee0b4fc903e302b86beb4b963e673022e6723f01
                 <strong>R$ {{ number_format($cart->Product->price * $cart->quantity, 2, ',', '.') }}</strong>
               </li>
             @endforeach
